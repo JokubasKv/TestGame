@@ -236,9 +236,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Fire1Released",
+                    "type": "Button",
+                    "id": "df456055-e9c5-4054-bc51-a7f564e4c2b2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Reload",
                     "type": "Button",
                     "id": "3fe1224b-159f-4d7d-a705-72551ae3dc31",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pickup",
+                    "type": "Button",
+                    "id": "14c31c3c-b862-4867-8fe3-a352637fe5e4",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -287,6 +305,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4fd19747-2a6a-42fc-9570-cd1a88ba0e5f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire1Released",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0eb4ee9-75dd-4258-8b1c-670cfb8ab770",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pickup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

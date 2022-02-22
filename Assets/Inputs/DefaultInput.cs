@@ -258,9 +258,27 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Fire1Released"",
+                    ""type"": ""Button"",
+                    ""id"": ""df456055-e9c5-4054-bc51-a7f564e4c2b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""3fe1224b-159f-4d7d-a705-72551ae3dc31"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""14c31c3c-b862-4867-8fe3-a352637fe5e4"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -311,6 +329,28 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fd19747-2a6a-42fc-9570-cd1a88ba0e5f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire1Released"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0eb4ee9-75dd-4258-8b1c-670cfb8ab770"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,7 +371,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Weapon_Fire2Pressed = m_Weapon.FindAction("Fire2Pressed", throwIfNotFound: true);
         m_Weapon_Fire2Released = m_Weapon.FindAction("Fire2Released", throwIfNotFound: true);
         m_Weapon_Fire1Pressed = m_Weapon.FindAction("Fire1Pressed", throwIfNotFound: true);
+        m_Weapon_Fire1Released = m_Weapon.FindAction("Fire1Released", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
+        m_Weapon_Pickup = m_Weapon.FindAction("Pickup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -475,7 +517,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Fire2Pressed;
     private readonly InputAction m_Weapon_Fire2Released;
     private readonly InputAction m_Weapon_Fire1Pressed;
+    private readonly InputAction m_Weapon_Fire1Released;
     private readonly InputAction m_Weapon_Reload;
+    private readonly InputAction m_Weapon_Pickup;
     public struct WeaponActions
     {
         private @DefaultInput m_Wrapper;
@@ -483,7 +527,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @Fire2Pressed => m_Wrapper.m_Weapon_Fire2Pressed;
         public InputAction @Fire2Released => m_Wrapper.m_Weapon_Fire2Released;
         public InputAction @Fire1Pressed => m_Wrapper.m_Weapon_Fire1Pressed;
+        public InputAction @Fire1Released => m_Wrapper.m_Weapon_Fire1Released;
         public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
+        public InputAction @Pickup => m_Wrapper.m_Weapon_Pickup;
         public InputActionMap Get() { return m_Wrapper.m_Weapon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -502,9 +548,15 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Fire1Pressed.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Pressed;
                 @Fire1Pressed.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Pressed;
                 @Fire1Pressed.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Pressed;
+                @Fire1Released.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Released;
+                @Fire1Released.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Released;
+                @Fire1Released.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnFire1Released;
                 @Reload.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnReload;
+                @Pickup.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
             }
             m_Wrapper.m_WeaponActionsCallbackInterface = instance;
             if (instance != null)
@@ -518,9 +570,15 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Fire1Pressed.started += instance.OnFire1Pressed;
                 @Fire1Pressed.performed += instance.OnFire1Pressed;
                 @Fire1Pressed.canceled += instance.OnFire1Pressed;
+                @Fire1Released.started += instance.OnFire1Released;
+                @Fire1Released.performed += instance.OnFire1Released;
+                @Fire1Released.canceled += instance.OnFire1Released;
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
             }
         }
     }
@@ -540,6 +598,8 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnFire2Pressed(InputAction.CallbackContext context);
         void OnFire2Released(InputAction.CallbackContext context);
         void OnFire1Pressed(InputAction.CallbackContext context);
+        void OnFire1Released(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
     }
 }

@@ -15,6 +15,11 @@ public class scr_CharacterController : MonoBehaviour
     private Vector3 newCameraRotation;
     private Vector3 newCharacterRotation;
 
+    //Events
+    public delegate void ShootAction();
+    public static event ShootAction OnShootPressed;
+    public static event ShootAction OnShootReleased;
+
     [Header("References")]
     public Transform cameraHolder;
     public Transform feetTransform;
@@ -66,6 +71,11 @@ public class scr_CharacterController : MonoBehaviour
     public bool isAimingIn;
     [Header("Shooting")]
     public bool isShooting;
+    [Header("Pickup Settings")]
+    public float pickUpRange;
+    public float dropForwardForce, dropUpwardForce;
+    public bool equipped;
+    public static bool slotFull;
 
 
     #region - Awake -
@@ -84,7 +94,10 @@ public class scr_CharacterController : MonoBehaviour
         defaultInput.Weapon.Fire2Pressed.performed += e => AimingInPressed();
         defaultInput.Weapon.Fire2Released.performed += e => AimingInReleased();
 
-        //defaultInput.Weapon.Fire1Pressed.performed += e => shootableWeapon.Shoot();
+        defaultInput.Weapon.Fire1Pressed.performed += e => OnShootPressed();
+        defaultInput.Weapon.Fire1Released.performed += e => OnShootReleased();
+
+        defaultInput.Weapon.Pickup.performed += e => Pickup();
 
         defaultInput.Enable();
 
@@ -94,6 +107,10 @@ public class scr_CharacterController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         cameraHeight = cameraHolder.localPosition.y;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
 
         if (currentWeapon)
         {
@@ -120,6 +137,7 @@ public class scr_CharacterController : MonoBehaviour
     private void AimingInPressed()
     {
         isAimingIn = true;
+        isSprinting = false;
     }
     private void AimingInReleased()
     {
@@ -303,7 +321,7 @@ public class scr_CharacterController : MonoBehaviour
 
     private void ToggleSprint()
     {
-        if (input_Movement.y <= 0.2f)
+        if (input_Movement.y <= 0.2f || playerStance != PlayerStance.Stand || isAimingIn)
         {
             isSprinting = false;
             return;
@@ -318,6 +336,29 @@ public class scr_CharacterController : MonoBehaviour
             isSprinting = false;
         }
     }
+    #endregion
+    #region -Pickup and Drop-
+    private void Pickup()
+    {
+        Vector3 distanceToPlayer = characterController.transform.position - transform.position;
+        if(!equipped && distanceToPlayer.magnitude <= pickUpRange && !slotFull)
+        {
+            equipped = true;
+            slotFull = true;
+
+
+        }
+    }
+    private void Drop()
+    {
+        if (equipped)
+        {
+
+        }
+    }
+    #endregion
+    #region -Shooting -
+
     #endregion
     #region - Gizmos -
     private void OnDrawGizmos()

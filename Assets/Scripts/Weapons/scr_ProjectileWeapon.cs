@@ -9,9 +9,6 @@ public class scr_ProjectileWeapon : MonoBehaviour
     public Camera playerCamera;
     public Transform attackPoint;
     public GameObject bullet;
-    [Header("Control References")]
-    public InputActionReference shootInputActionReference;
-    public InputActionReference reloadInputActionReference;
     [Header("Graphic References")]
     public GameObject muzzleFlash;
     [Header ("Weapon Settings")]
@@ -24,6 +21,7 @@ public class scr_ProjectileWeapon : MonoBehaviour
     public int MagazineSize;
     public int bulletsPerTap;
     public bool allowButtonHold;
+    public bool buttonPressed;
     [Header("Weapon Recoil Settings")]
     public CharacterController characterController;
     public float recoilForce;
@@ -39,40 +37,16 @@ public class scr_ProjectileWeapon : MonoBehaviour
 
     public bool allowInvoke = true;
 
-    private InputAction ShootInputAction
-    {
-        get
-        {
-            var action = shootInputActionReference.action;
-            if (!action.enabled)
-            {
-                action.Enable();
-            }
-            return action;
-        }
-    }
-    private InputAction ReloadInputAction
-    {
-        get
-        {
-            var action = reloadInputActionReference.action;
-            if (!action.enabled)
-            {
-                action.Enable();
-            }
-            return action;
-        }
-    }
 
     private void OnEnable()
     {
-       ShootInputAction.performed += e => Shoot();
-       ReloadInputAction.performed += e => Reload();
+        scr_CharacterController.OnShootPressed += ShootPressed;
+        scr_CharacterController.OnShootReleased += ShootReleased;
     }
     private void OnDisable()
     {
-        ShootInputAction.performed -= e => Shoot();
-        ReloadInputAction.performed -= e => Reload();
+        scr_CharacterController.OnShootPressed -= ShootPressed;
+        scr_CharacterController.OnShootReleased += ShootReleased;
     }
 
 
@@ -84,60 +58,83 @@ public class scr_ProjectileWeapon : MonoBehaviour
         shooting = false;
     }
 
+    private void Update()
+    {
+        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold)
+        {
+            Shoot();
+        }
+        
+    }
+
 
     public void Shoot()
     {
-        if (readyToShoot && !shooting && !reloading && bulletsLeft > 0)
+
+        Debug.Log("Pew");
+        buttonPressed = true;
+        bulletsShot = 0;
+        readyToShoot = false;
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log("Pew");
-            bulletsShot = 0;
-            readyToShoot = false;
-
-            Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            RaycastHit hit;
-
-            Vector3 targetPoint;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                targetPoint = hit.point;
-            }
-            else
-            {
-                targetPoint = ray.GetPoint(75);
-            }
-
-            Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
-            float x = Random.Range(-spread, spread);
-            float y = Random.Range(-spread, spread);
-
-            Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
-
-            GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-            currentBullet.transform.forward = directionWithSpread.normalized;
-
-            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-            currentBullet.GetComponent<Rigidbody>().AddForce(playerCamera.transform.up * upwardForce, ForceMode.Impulse);
-
-
-            bulletsLeft--;
-            bulletsShot++;
-
-            if (allowInvoke)
-            {
-                Invoke("ResetShot", timeBetweenShooting);
-                allowInvoke = false;
-
-                characterController.Move(-directionWithSpread.normalized * recoilForce);
-
-            }
-
-            if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
-            {
-                Invoke("Shoot", timeBetweenShots);
-            }
+            targetPoint = hit.point;
         }
+        else
+        {
+            targetPoint = ray.GetPoint(75);
+        }
+
+        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithSpread.normalized;
+
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(playerCamera.transform.up * upwardForce, ForceMode.Impulse);
+
+
+        bulletsLeft--;
+        bulletsShot++;
+
+        if (allowInvoke)
+        {
+            Invoke("ResetShot", timeBetweenShooting);
+            allowInvoke = false;
+
+            characterController.Move(-directionWithSpread.normalized * recoilForce);
+
+        }
+
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        {
+            Invoke("Shoot", timeBetweenShots);
+        }
+
+    }
+    private void ShootPressed()
+    {
+        if(!allowButtonHold && !buttonPressed)
+        {
+            Shoot();
+        }
+        buttonPressed = true;
+        
+    }
+    private void ShootReleased()
+    {
+        buttonPressed = false;
+        Debug.Log("Released M1");
     }
 
     private void ResetShot()
