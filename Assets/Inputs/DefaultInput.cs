@@ -283,6 +283,15 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdb4bfbb-5bd4-4f3c-a222-44a0532ca79e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -351,6 +360,17 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                     ""action"": ""Pickup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0a57ce5-b57b-4956-a324-8b0c9afaf59e"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -374,6 +394,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         m_Weapon_Fire1Released = m_Weapon.FindAction("Fire1Released", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
         m_Weapon_Pickup = m_Weapon.FindAction("Pickup", throwIfNotFound: true);
+        m_Weapon_Drop = m_Weapon.FindAction("Drop", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -520,6 +541,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Fire1Released;
     private readonly InputAction m_Weapon_Reload;
     private readonly InputAction m_Weapon_Pickup;
+    private readonly InputAction m_Weapon_Drop;
     public struct WeaponActions
     {
         private @DefaultInput m_Wrapper;
@@ -530,6 +552,7 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         public InputAction @Fire1Released => m_Wrapper.m_Weapon_Fire1Released;
         public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
         public InputAction @Pickup => m_Wrapper.m_Weapon_Pickup;
+        public InputAction @Drop => m_Wrapper.m_Weapon_Drop;
         public InputActionMap Get() { return m_Wrapper.m_Weapon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -557,6 +580,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Pickup.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
                 @Pickup.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
                 @Pickup.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnPickup;
+                @Drop.started -= m_Wrapper.m_WeaponActionsCallbackInterface.OnDrop;
+                @Drop.performed -= m_Wrapper.m_WeaponActionsCallbackInterface.OnDrop;
+                @Drop.canceled -= m_Wrapper.m_WeaponActionsCallbackInterface.OnDrop;
             }
             m_Wrapper.m_WeaponActionsCallbackInterface = instance;
             if (instance != null)
@@ -579,6 +605,9 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
                 @Pickup.started += instance.OnPickup;
                 @Pickup.performed += instance.OnPickup;
                 @Pickup.canceled += instance.OnPickup;
+                @Drop.started += instance.OnDrop;
+                @Drop.performed += instance.OnDrop;
+                @Drop.canceled += instance.OnDrop;
             }
         }
     }
@@ -601,5 +630,6 @@ public partial class @DefaultInput : IInputActionCollection2, IDisposable
         void OnFire1Released(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnPickup(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
     }
 }

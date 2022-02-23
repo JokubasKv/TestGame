@@ -3,6 +3,7 @@ using static scr_Models;
 
 public class scr_WeaponController : MonoBehaviour
 {
+    [SerializeField]
     private scr_CharacterController characterController;
 
     [Header("References")]
@@ -52,10 +53,55 @@ public class scr_WeaponController : MonoBehaviour
     [HideInInspector]
     public bool isAimingIn;
 
+    [Header("Shooting")]
+    [Header("References")]
+    public Transform attackPoint;
+    public GameObject bullet;
+    [Header("Graphic References")]
+    public GameObject muzzleFlash;
+    [Header("Shooting Settings")]
+    public float shootForce;
+    public float upwardForce;
+    public float timeBetweenShooting;
+    public float spread;
+    public float reloadTime;
+    public float timeBetweenShots;
+    public int MagazineSize;
+    public int bulletsPerTap;
+    public bool allowButtonHold;
+    public bool buttonPressed;
+    [Header("Recoil Settings")]
+    public float recoilForce;
 
+    [SerializeField]
+    private int bulletsLeft;
+    private int bulletsShot;
 
+    bool readyToShoot;
+    bool reloading;
 
-    #region - Start -
+    public bool allowInvoke = true;
+    #region - OnEnable/OnDisable-
+    private void OnEnable()
+    {
+        scr_CharacterController.OnShootPressed += ShootPressed;
+        scr_CharacterController.OnShootReleased += ShootReleased;
+        scr_CharacterController.OnReloadPressed += Reload;
+    }
+    private void OnDisable()
+    {
+        scr_CharacterController.OnShootPressed -= ShootPressed;
+        scr_CharacterController.OnShootReleased -= ShootReleased;
+        scr_CharacterController.OnReloadPressed -= Reload;
+    }
+    #endregion
+    #region - Start/Awake -
+    private void Awake()
+    {
+        bulletsLeft = MagazineSize;
+        readyToShoot = true;
+        buttonPressed = false;
+    }
     private void Start()
     {
         newWeaponRotation = transform.localRotation.eulerAngles;
@@ -71,10 +117,15 @@ public class scr_WeaponController : MonoBehaviour
     {
         if (!isInitialised)
         {
+            characterController = GetComponentInParent<scr_CharacterController>();
+            isInitialised = true;
             return;
         }
 
-
+        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold)
+        {
+            Shoot();
+        }
 
         CalculateWeaponRotation();
         SetWeaponAnimations();
@@ -151,7 +202,7 @@ public class scr_WeaponController : MonoBehaviour
 
     public void TriggerJump()
     {
-        isGroundedTrigger = false;;
+        isGroundedTrigger = false;
         weaponAnimator.SetTrigger("Jump");
     }
     #endregion
@@ -171,6 +222,101 @@ public class scr_WeaponController : MonoBehaviour
     private Vector3 LissajousCurve(float Time, float A, float B)
     {
         return new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI));
+    }
+    #endregion
+    #region - Shoot -
+    public void Shoot()
+    {
+
+        Debug.Log("Pew");
+        buttonPressed = true;
+        bulletsShot = 0;
+        readyToShoot = false;
+
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(75);
+        }
+
+        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithSpread.normalized;
+
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+
+        //Instantiate muzzle flash, if you have one
+        if (muzzleFlash != null)
+            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+
+
+        bulletsLeft--;
+        bulletsShot++;
+
+        if (allowInvoke)
+        {
+            Invoke("ResetShot", timeBetweenShooting);
+            allowInvoke = false;
+
+            characterController.characterController.Move(-directionWithSpread.normalized * recoilForce);
+
+        }
+
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        {
+            Invoke("Shoot", timeBetweenShots);
+        }
+
+    }
+    private void ShootPressed()
+    {
+        if (!allowButtonHold && !buttonPressed)
+        {
+            Shoot();
+        }
+        buttonPressed = true;
+
+    }
+    private void ShootReleased()
+    {
+        buttonPressed = false;
+        Debug.Log("Released M1");
+    }
+
+    private void ResetShot()
+    {
+        readyToShoot = true;
+        allowInvoke = true;
+    }
+    #endregion
+    #region - Reload -
+    private void Reload()
+    {
+        if (bulletsLeft == MagazineSize && reloading) return;
+
+        reloading = true;
+        Invoke("ReloadFinished", reloadTime);
+    }
+
+    private void ReloadFinished()
+    {
+        bulletsLeft = MagazineSize;
+        reloading = false;
     }
     #endregion
 

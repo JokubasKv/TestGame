@@ -5,7 +5,8 @@ using static scr_Models;
 
 public class scr_CharacterController : MonoBehaviour
 {
-    private CharacterController characterController;
+    [HideInInspector]
+    public CharacterController characterController;
     private DefaultInput defaultInput;
     [HideInInspector]
     public Vector2 input_Movement;
@@ -16,9 +17,13 @@ public class scr_CharacterController : MonoBehaviour
     private Vector3 newCharacterRotation;
 
     //Events
-    public delegate void ShootAction();
-    public static event ShootAction OnShootPressed;
-    public static event ShootAction OnShootReleased;
+    public delegate void WeaponAction();
+    public static event WeaponAction OnShootPressed;
+    public static event WeaponAction OnShootReleased;
+    public static event WeaponAction OnReloadPressed;
+    public static event WeaponAction OnPickUpPressed;
+    public static event WeaponAction OnDropPressed;
+
 
     [Header("References")]
     public Transform cameraHolder;
@@ -94,10 +99,13 @@ public class scr_CharacterController : MonoBehaviour
         defaultInput.Weapon.Fire2Pressed.performed += e => AimingInPressed();
         defaultInput.Weapon.Fire2Released.performed += e => AimingInReleased();
 
-        defaultInput.Weapon.Fire1Pressed.performed += e => OnShootPressed();
-        defaultInput.Weapon.Fire1Released.performed += e => OnShootReleased();
+        defaultInput.Weapon.Fire1Pressed.performed += e => ShootPressed();
+        defaultInput.Weapon.Fire1Released.performed += e => ShootReleased();
 
-        defaultInput.Weapon.Pickup.performed += e => Pickup();
+        defaultInput.Weapon.Reload.performed += e => ReloadPressed();
+
+        defaultInput.Weapon.Pickup.performed += e => PickUpPressed();
+        defaultInput.Weapon.Drop.performed += e => OnDropPressed();
 
         defaultInput.Enable();
 
@@ -266,7 +274,9 @@ public class scr_CharacterController : MonoBehaviour
         //Jump
         jumpingForce = Vector3.up * playerSettings.jumpingHeight;
         playerGravity = 0;
-        currentWeapon.TriggerJump();
+        if(currentWeapon)
+            if(currentWeapon.enabled)
+                currentWeapon.TriggerJump();
     }
     #endregion
     #region - Stance -
@@ -337,29 +347,39 @@ public class scr_CharacterController : MonoBehaviour
         }
     }
     #endregion
-    #region -Pickup and Drop-
-    private void Pickup()
-    {
-        Vector3 distanceToPlayer = characterController.transform.position - transform.position;
-        if(!equipped && distanceToPlayer.magnitude <= pickUpRange && !slotFull)
-        {
-            equipped = true;
-            slotFull = true;
-
-
-        }
-    }
-    private void Drop()
-    {
-        if (equipped)
-        {
-
-        }
-    }
-    #endregion
     #region -Shooting -
-
+    private void ShootPressed()
+    {
+        if (isSprinting) return;
+        if (OnShootPressed != null)
+        {
+            OnShootPressed();
+        }
+    }
+    private void ShootReleased()
+    {
+        if (OnShootReleased != null)
+        {
+            OnShootReleased();
+        }
+    }
     #endregion
+    #region - Reload -
+    private void ReloadPressed()
+    {
+        if (OnReloadPressed != null)
+        {
+            OnReloadPressed();
+        }
+    }
+    #endregion
+    private void PickUpPressed()
+    {
+        if (OnPickUpPressed != null)
+        {
+            OnPickUpPressed();
+        }
+    }
     #region - Gizmos -
     private void OnDrawGizmos()
     {

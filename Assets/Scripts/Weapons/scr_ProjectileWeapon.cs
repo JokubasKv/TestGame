@@ -30,7 +30,6 @@ public class scr_ProjectileWeapon : MonoBehaviour
     private int bulletsLeft;
     private int bulletsShot;
 
-    bool shooting;
     bool readyToShoot;
     bool reloading;
 
@@ -55,7 +54,7 @@ public class scr_ProjectileWeapon : MonoBehaviour
     {
         bulletsLeft = MagazineSize;
         readyToShoot = true;
-        shooting = false;
+        buttonPressed = false; 
     }
 
     private void Update()
@@ -102,6 +101,10 @@ public class scr_ProjectileWeapon : MonoBehaviour
 
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(playerCamera.transform.up * upwardForce, ForceMode.Impulse);
+
+        //Instantiate muzzle flash, if you have one
+        if (muzzleFlash != null)
+            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
 
         bulletsLeft--;
