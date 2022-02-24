@@ -40,7 +40,6 @@ public class scr_PickupController : MonoBehaviour
             gunScript.enabled = false;
             rb.isKinematic = false;
             coll.isTrigger = false;
-            gunScript.weaponAnimator.enabled = false;
         }
         if (equipped)
         {
@@ -48,13 +47,12 @@ public class scr_PickupController : MonoBehaviour
             rb.isKinematic = true;
             coll.isTrigger = true;
             slotFull = true;
-            gunScript.weaponAnimator.enabled = true;
         }
     }
     private void Pickup()
     {
         Vector3 distanceToPlayer = player.position - transform.position;
-        if (!equipped && distanceToPlayer.magnitude <= pickupRange && !slotFull)
+        if (!equipped && CheckPickUp() && !slotFull)
         {
             equipped = true;
             slotFull = true;
@@ -93,5 +91,26 @@ public class scr_PickupController : MonoBehaviour
             gunScript.enabled = false;
             characterScript.currentWeapon = null;
         }
+    }
+
+    private bool CheckPickUp()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, pickupRange))
+        {
+            if (hit.transform.name == this.transform.name )
+            {
+                return true;
+            }
+            else
+                return false;
+
+        }
+        return false;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(fpsCam.transform.position, fpsCam.transform.forward*pickupRange);
     }
 }

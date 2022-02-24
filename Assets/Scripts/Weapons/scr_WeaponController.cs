@@ -87,12 +87,16 @@ public class scr_WeaponController : MonoBehaviour
         scr_CharacterController.OnShootPressed += ShootPressed;
         scr_CharacterController.OnShootReleased += ShootReleased;
         scr_CharacterController.OnReloadPressed += Reload;
+
+        weaponAnimator.speed = 1;
     }
     private void OnDisable()
     {
         scr_CharacterController.OnShootPressed -= ShootPressed;
         scr_CharacterController.OnShootReleased -= ShootReleased;
         scr_CharacterController.OnReloadPressed -= Reload;
+
+        weaponAnimator.speed = 0;
     }
     #endregion
     #region - Start/Awake -
@@ -122,7 +126,7 @@ public class scr_WeaponController : MonoBehaviour
             return;
         }
 
-        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold)
+        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold && !characterController.isSprinting)
         {
             Shoot();
         }
@@ -186,11 +190,13 @@ public class scr_WeaponController : MonoBehaviour
 
         if (characterController.isGrounded && !isGroundedTrigger && fallingDelay > 0.1f)
         {
+            Debug.Log("Land");
             weaponAnimator.SetTrigger("Land");
             isGroundedTrigger = true;
         }
         else if (!characterController.isGrounded && isGroundedTrigger)
         {
+            Debug.Log("Falling");
             weaponAnimator.SetTrigger("Falling");
             isGroundedTrigger = false;
         }
@@ -202,6 +208,7 @@ public class scr_WeaponController : MonoBehaviour
 
     public void TriggerJump()
     {
+        Debug.Log("TriggerJump");
         isGroundedTrigger = false;
         weaponAnimator.SetTrigger("Jump");
     }

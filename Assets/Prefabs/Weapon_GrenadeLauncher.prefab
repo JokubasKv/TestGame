@@ -74,7 +74,7 @@ Animator:
   m_GameObject: {fileID: 596017852849944752}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 88fb73b8a9361a24daf637ad8f3d94cf, type: 2}
+  m_Controller: {fileID: 9100000, guid: 006dfbe5ba6185747afcacb23d35c1a1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 596017852959646706}
   m_Layer: 0
   m_Name: Weapon_GrenadeLauncher
-  m_TagString: Untagged
+  m_TagString: CanPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,9 +206,9 @@ MonoBehaviour:
   player: {fileID: 0}
   gunContainer: {fileID: 0}
   fpsCam: {fileID: 0}
-  pickupRange: 4
-  dropForwarForce: 15
-  dropUpwardForce: 7
+  pickupRange: 3
+  dropForwarForce: 8
+  dropUpwardForce: 4
   equipped: 0
 --- !u!1 &596017853170669788
 GameObject:
@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596017853170669788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.026, y: 1.009, z: -1.31}
+  m_LocalPosition: {x: -0.026, y: 1.4, z: -1.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 596017852849944753}
