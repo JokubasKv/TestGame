@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -438,7 +438,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh15464
+  m_Name: pb_Mesh32454
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -629,12 +629,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9f13987cc65a548a4a322053993168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  input_Movement: {x: 0, y: 0}
   input_View: {x: 0, y: 0}
   cameraHolder: {fileID: 789379646}
   feetTransform: {fileID: 857968870}
   playerSettings:
     ViewXSensitivity: 10
     ViewYSensitivity: 10
+    AiminigSensitivityEffector: 0
     ViewXInverted: 0
     ViewYInverted: 0
     SprintingHold: 1
@@ -651,11 +654,17 @@ MonoBehaviour:
     CrouchSpeedEffector: 0.6
     ProneSpeedEffector: 0.2
     FallingSpeedEffector: 0.4
+    AimingSpeedEffector: 0
+    isGroundedRadius: 0
+    isFallingSpeed: 0
   viewClampYmin: -70
   viewClampYmax: 80
   playerMask:
     serializedVersion: 2
     m_Bits: 55
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   gravityAmount: 0.03
   gravityMin: -3
   jumpingForce: {x: 0, y: 0, z: 0}
@@ -670,8 +679,17 @@ MonoBehaviour:
   playerProneStance:
     CameraHeight: -0.5
     StanceCollider: {fileID: 689404567}
+  isSprinting: 0
+  isFalling: 0
+  isGrounded: 0
   currentWeapon: {fileID: 1340417284}
-  test: 0
+  weaponAnimationSpeed: 0
+  isAimingIn: 0
+  isShooting: 0
+  pickUpRange: 0
+  dropForwardForce: 0
+  dropUpwardForce: 0
+  equipped: 0
 --- !u!143 &689404565
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1022,6 +1040,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3271d69055ce8c48b88ab718f7d9cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  weaponAnimator: {fileID: 0}
+  fpsCam: {fileID: 0}
   settings:
     SwayYinverted: 0
     SwayXinverted: 0
@@ -1030,6 +1051,37 @@ MonoBehaviour:
     SwayResetSmoothing: 0.1
     SwayClampX: 8
     SwayClampY: 8
+    MovementSwayYInverted: 0
+    MovementSwayXInverted: 0
+    MovementSwayX: 0
+    MovementSwayY: 0
+    MovementSwaySmoothing: 0
+  ammoText: {fileID: 0}
+  weaponSwayObject: {fileID: 0}
+  swayAmountA: 1
+  swayAmountB: 2
+  swayScale: 600
+  swayLerpSpeed: 14
+  sightTarget: {fileID: 0}
+  sightOffset: 0
+  aimingInTime: 0
+  isAimingIn: 0
+  attackPoint: {fileID: 0}
+  bullet: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  shootForce: 0
+  upwardForce: 0
+  timeBetweenShooting: 0
+  spread: 0
+  reloadTime: 0
+  timeBetweenShots: 0
+  MagazineSize: 0
+  bulletsPerTap: 0
+  allowButtonHold: 0
+  buttonPressed: 0
+  recoilForce: 0
+  bulletsLeft: 0
+  allowInvoke: 1
 --- !u!4 &1340417285
 Transform:
   m_ObjectHideFlags: 0

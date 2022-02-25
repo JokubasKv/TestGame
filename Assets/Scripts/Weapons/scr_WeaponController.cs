@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using static scr_Models;
+using UnityEngine.UI;
 
 public class scr_WeaponController : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class scr_WeaponController : MonoBehaviour
     private bool isGroundedTrigger;
 
     private float fallingDelay;
+
+    public Text ammoText;
 
 
     [Header("Weapon Sway")]
@@ -89,6 +92,9 @@ public class scr_WeaponController : MonoBehaviour
         scr_CharacterController.OnReloadPressed += Reload;
 
         weaponAnimator.speed = 1;
+
+        // Update when active state is changed
+        UpdateAmmoText(); // update ammo text
     }
     private void OnDisable()
     {
@@ -109,6 +115,8 @@ public class scr_WeaponController : MonoBehaviour
     private void Start()
     {
         newWeaponRotation = transform.localRotation.eulerAngles;
+
+        UpdateAmmoText(); // update ammo text
     }
     public void Initialise(scr_CharacterController CharacterController)
     {
@@ -273,6 +281,7 @@ public class scr_WeaponController : MonoBehaviour
 
 
         bulletsLeft--;
+        UpdateAmmoText(); // update ammo text
         bulletsShot++;
 
         if (allowInvoke)
@@ -310,6 +319,11 @@ public class scr_WeaponController : MonoBehaviour
         readyToShoot = true;
         allowInvoke = true;
     }
+
+    private void UpdateAmmoText()
+    {
+        ammoText.text = $"Ammo {bulletsLeft}";
+    }
     #endregion
     #region - Reload -
     private void Reload()
@@ -324,6 +338,7 @@ public class scr_WeaponController : MonoBehaviour
     {
         bulletsLeft = MagazineSize;
         reloading = false;
+        UpdateAmmoText(); // update ammo text
     }
     #endregion
 

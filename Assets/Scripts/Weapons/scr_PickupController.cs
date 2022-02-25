@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class scr_PickupController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class scr_PickupController : MonoBehaviour
     public scr_CharacterController characterScript;
     public Rigidbody rb;
     public BoxCollider coll;
+    public Text ammoText;
 
     public Transform player, gunContainer, fpsCam;
 
@@ -90,7 +92,15 @@ public class scr_PickupController : MonoBehaviour
 
             gunScript.enabled = false;
             characterScript.currentWeapon = null;
+            Debug.Log("Drop");
+            UpdateAmmoText();
+
         }
+    }
+
+    private void UpdateAmmoText()
+    {
+        ammoText.text = "";
     }
 
     private bool CheckPickUp()
