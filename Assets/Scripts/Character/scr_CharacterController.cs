@@ -30,11 +30,14 @@ public class scr_CharacterController : MonoBehaviour
     public Transform cameraHolder;
     public Transform feetTransform;
     public Text ammoText;
+    public Text healthText;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
     public float viewClampYmin = -70;
     public float viewClampYmax = 80;
+    public int hitpoints = 5;
+    float savedTime = 0;
     public LayerMask playerMask;
     public LayerMask groundMask;
 
@@ -146,6 +149,7 @@ public class scr_CharacterController : MonoBehaviour
     private void Start()
     {
         UpdateAmmoText();
+        UpdateHealthText();
     }
     #endregion
     #region - Aiming In -
@@ -375,6 +379,10 @@ public class scr_CharacterController : MonoBehaviour
     {
         ammoText.text = "";
     }
+    private void UpdateHealthText()
+    {
+        healthText.text = $"HP: {hitpoints}";
+    }
     #endregion
     #region - Reload -
     private void ReloadPressed()
@@ -396,6 +404,32 @@ public class scr_CharacterController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(feetTransform.position, playerSettings.isGroundedRadius);
+    }
+    #endregion
+    #region - Damage -
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Crystal")
+        {
+            TakePlayerDamage();
+        }
+    }*/
+    private void OnTriggerStay(Collider other)
+    {
+        if(Time.time - savedTime > 1)
+        {
+            savedTime = Time.time;
+            if (other.gameObject.tag == "Crystal")
+            {
+                TakePlayerDamage();
+            }
+        }
+        
+    }
+    private void TakePlayerDamage()
+    {
+        hitpoints -= 1;
+        UpdateHealthText();
     }
     #endregion
 }
