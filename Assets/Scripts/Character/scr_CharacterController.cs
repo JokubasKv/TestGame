@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static scr_Models;
 
 public class scr_CharacterController : MonoBehaviour
@@ -28,6 +29,7 @@ public class scr_CharacterController : MonoBehaviour
     [Header("References")]
     public Transform cameraHolder;
     public Transform feetTransform;
+    public Text ammoText;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -126,7 +128,7 @@ public class scr_CharacterController : MonoBehaviour
         }
     }
     #endregion
-    #region - Update -
+    #region - Update/Start -
     private void Update()
     {
         SetIsGrounded();
@@ -139,6 +141,11 @@ public class scr_CharacterController : MonoBehaviour
         CalculateAimingIn();
 
         StanceCheck(playerCrouchStance.StanceCollider.height);
+    }
+
+    private void Start()
+    {
+        UpdateAmmoText();
     }
     #endregion
     #region - Aiming In -
@@ -362,6 +369,11 @@ public class scr_CharacterController : MonoBehaviour
         {
             OnShootReleased();
         }
+    }
+
+    private void UpdateAmmoText()
+    {
+        ammoText.text = "";
     }
     #endregion
     #region - Reload -
