@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596017851917210437}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 596017852849944753}
   - component: {fileID: 596017852849944718}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WeaponAnimations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 596017852959646698}
   - component: {fileID: 596017852959646707}
   - component: {fileID: 596017852959646706}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Weapon_GrenadeLauncher
   m_TagString: CanPickUp
   m_Icon: {fileID: 0}
@@ -145,6 +145,7 @@ MonoBehaviour:
     MovementSwayX: 10
     MovementSwayY: 5
     MovementSwaySmoothing: 0.3
+  ammoText: {fileID: 0}
   weaponSwayObject: {fileID: 596017853620159470}
   swayAmountA: 1
   swayAmountB: 2
@@ -203,6 +204,7 @@ MonoBehaviour:
   characterScript: {fileID: 0}
   rb: {fileID: 596017852959646707}
   coll: {fileID: 7802626385785764204}
+  ammoText: {fileID: 0}
   player: {fileID: 0}
   gunContainer: {fileID: 0}
   fpsCam: {fileID: 0}
@@ -219,7 +221,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596017853170669789}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SightTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596017853620159470}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: WeaponSway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,6 +352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrenadeTestingWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b85a521879c687d4b877f034cbc2a6f7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b85a521879c687d4b877f034cbc2a6f7, type: 3}
