@@ -8,6 +8,7 @@ public class scr_CharacterController : MonoBehaviour
 {
     [HideInInspector]
     public CharacterController characterController;
+    public scr_WeaponController weaponController;
     private DefaultInput defaultInput;
     [HideInInspector]
     public Vector2 input_Movement;
@@ -31,6 +32,7 @@ public class scr_CharacterController : MonoBehaviour
     public Transform feetTransform;
     public Text ammoText;
     public Text healthText;
+    public Text finalText;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -118,6 +120,7 @@ public class scr_CharacterController : MonoBehaviour
         newCharacterRotation = transform.localRotation.eulerAngles;
 
         characterController = GetComponent<CharacterController>();
+        weaponController = GetComponent<scr_WeaponController>();
 
         cameraHeight = cameraHolder.localPosition.y;
 
@@ -429,7 +432,18 @@ public class scr_CharacterController : MonoBehaviour
     private void TakePlayerDamage()
     {
         hitpoints -= 1;
+        if (hitpoints <= 0)
+        {
+            StopGame();
+        }
         UpdateHealthText();
+    }
+
+    private void StopGame()
+    {
+        characterController.enabled = false;
+        //weaponController.enabled = false; // needs fixing
+        finalText.gameObject.SetActive(true);
     }
     #endregion
 }
