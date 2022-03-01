@@ -424,14 +424,14 @@ public class scr_CharacterController : MonoBehaviour
             savedTime = Time.time;
             if (other.gameObject.tag == "Crystal")
             {
-                TakePlayerDamage();
+                TakePlayerDamage(1,DamageType.Electric);
             }
         }
         
     }
-    private void TakePlayerDamage()
+    private void TakePlayerDamage(int damage, DamageType damageType)
     {
-        hitpoints -= 1;
+        hitpoints -= damage;
         if (hitpoints <= 0)
         {
             StopGame();
@@ -442,7 +442,7 @@ public class scr_CharacterController : MonoBehaviour
     private void StopGame()
     {
         characterController.enabled = false;
-        //weaponController.enabled = false; // needs fixing
+        weaponController.enabled = false; // needs fixing
         finalText.gameObject.SetActive(true);
     }
     #endregion

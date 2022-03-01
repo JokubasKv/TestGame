@@ -84,4 +84,11 @@ public static class scr_Models
         public float MovementSwaySmoothing;
     }
     #endregion
+
+    public enum DamageType
+    {
+        Blunt,
+        Electric,
+        Exsplosion
+    }
 }
