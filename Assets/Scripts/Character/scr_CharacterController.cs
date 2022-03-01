@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,6 +35,16 @@ public class scr_CharacterController : MonoBehaviour
     public Text healthText;
     public Text finalText;
     public Image deathOverlay;
+
+    [Serializable]
+    public class KeyValuePair
+    {
+        public DamageType damageType;
+        public Image image;
+    }
+
+    public List<KeyValuePair> hurtImageList = new List<KeyValuePair>();
+    private Dictionary<DamageType, Image> hurtImages=new Dictionary<DamageType, Image>();
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
@@ -117,6 +128,14 @@ public class scr_CharacterController : MonoBehaviour
         defaultInput.Weapon.Drop.performed += e => OnDropPressed();
 
         defaultInput.Enable();
+
+        foreach (var kvp in hurtImageList)
+        {
+            hurtImages[kvp.damageType] = kvp.image;
+        }
+
+
+
 
         newCameraRotation = cameraHolder.localRotation.eulerAngles;
         newCharacterRotation = transform.localRotation.eulerAngles;
@@ -415,6 +434,15 @@ public class scr_CharacterController : MonoBehaviour
     public void TakeDamage(int damage, DamageType damageType)
     {
         hitpoints -= damage;
+        if (hitpoints < 0) hitpoints = 0;
+        Image img;
+        if(hurtImages.TryGetValue(damageType,out img))
+        {
+            img.CrossFadeAlpha(0, 0f, false);
+            img.gameObject.SetActive(true);
+            img.CrossFadeAlpha(1, 0.2f, false);
+            StartCoroutine(FadeOutUIImage(img, 0.2f, 0.5f));
+        }
         UpdateHealthText();
         if (hitpoints <= 0 && !gameOver)
         {
@@ -440,6 +468,13 @@ public class scr_CharacterController : MonoBehaviour
     private void UpdateHealthText()
     {
         healthText.text = $"HP: {hitpoints}";
+    }
+    IEnumerator FadeOutUIImage(Image img, float time, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        img.CrossFadeAlpha(0, time, false);
+        yield return new WaitForSeconds(time);
+        img.gameObject.SetActive(false);
     }
     #endregion
 }
