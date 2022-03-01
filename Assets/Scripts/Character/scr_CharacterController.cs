@@ -8,7 +8,6 @@ public class scr_CharacterController : MonoBehaviour
 {
     [HideInInspector]
     public CharacterController characterController;
-    public scr_WeaponController weaponController;
     private DefaultInput defaultInput;
     [HideInInspector]
     public Vector2 input_Movement;
@@ -30,16 +29,17 @@ public class scr_CharacterController : MonoBehaviour
     [Header("References")]
     public Transform cameraHolder;
     public Transform feetTransform;
+    [Header("UI References")]
     public Text ammoText;
     public Text healthText;
     public Text finalText;
+    public Image deathOverlay;
 
     [Header("Settings")]
     public PlayerSettingsModel playerSettings;
     public float viewClampYmin = -70;
     public float viewClampYmax = 80;
     public int hitpoints = 5;
-    float savedTime = 0;
     public LayerMask playerMask;
     public LayerMask groundMask;
 
@@ -89,6 +89,8 @@ public class scr_CharacterController : MonoBehaviour
     public bool equipped;
     public static bool slotFull;
 
+    private bool gameOver = false;
+
 
     #region - Awake -
     private void Awake() 
@@ -120,7 +122,6 @@ public class scr_CharacterController : MonoBehaviour
         newCharacterRotation = transform.localRotation.eulerAngles;
 
         characterController = GetComponent<CharacterController>();
-        weaponController = GetComponent<scr_WeaponController>();
 
         cameraHeight = cameraHolder.localPosition.y;
 
@@ -137,16 +138,19 @@ public class scr_CharacterController : MonoBehaviour
     #region - Update/Start -
     private void Update()
     {
-        SetIsGrounded();
-        SetIsFalling();
+        if (!gameOver)
+        {
+            SetIsGrounded();
+            SetIsFalling();
 
-        CalculateView();
-        CalculateMovement();
-        CalculateJump();
-        CalculateStance();
-        CalculateAimingIn();
+            CalculateView();
+            CalculateMovement();
+            CalculateJump();
+            CalculateStance();
+            CalculateAimingIn();
 
-        StanceCheck(playerCrouchStance.StanceCollider.height);
+            StanceCheck(playerCrouchStance.StanceCollider.height);
+        }
     }
 
     private void Start()
@@ -377,15 +381,6 @@ public class scr_CharacterController : MonoBehaviour
             OnShootReleased();
         }
     }
-
-    private void UpdateAmmoText()
-    {
-        ammoText.text = "";
-    }
-    private void UpdateHealthText()
-    {
-        healthText.text = $"HP: {hitpoints}";
-    }
     #endregion
     #region - Reload -
     private void ReloadPressed()
@@ -417,33 +412,34 @@ public class scr_CharacterController : MonoBehaviour
             TakePlayerDamage();
         }
     }*/
-    private void OnTriggerStay(Collider other)
-    {
-        if(Time.time - savedTime > 1)
-        {
-            savedTime = Time.time;
-            if (other.gameObject.tag == "Crystal")
-            {
-                TakePlayerDamage(1,DamageType.Electric);
-            }
-        }
-        
-    }
-    private void TakePlayerDamage(int damage, DamageType damageType)
+    public void TakeDamage(int damage, DamageType damageType)
     {
         hitpoints -= damage;
-        if (hitpoints <= 0)
+        UpdateHealthText();
+        if (hitpoints <= 0 && !gameOver)
         {
             StopGame();
         }
-        UpdateHealthText();
     }
 
     private void StopGame()
     {
-        characterController.enabled = false;
-        weaponController.enabled = false; // needs fixing
+        if (currentWeapon) currentWeapon.enabled = false;
         finalText.gameObject.SetActive(true);
+        deathOverlay.gameObject.SetActive(true);
+        deathOverlay.CrossFadeAlpha(0, 0f, false);
+        deathOverlay.CrossFadeAlpha(1, 2f, false);
+        gameOver = true;
+    }
+    #endregion
+    #region -UI-
+    private void UpdateAmmoText()
+    {
+        ammoText.text = "";
+    }
+    private void UpdateHealthText()
+    {
+        healthText.text = $"HP: {hitpoints}";
     }
     #endregion
 }
