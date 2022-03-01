@@ -1000,6 +1000,7 @@ MonoBehaviour:
   cameraHolder: {fileID: 789379646}
   feetTransform: {fileID: 857968870}
   ammoText: {fileID: 1853932375}
+  healthText: {fileID: 0}
   playerSettings:
     ViewXSensitivity: 10
     ViewYSensitivity: 10
@@ -1025,6 +1026,7 @@ MonoBehaviour:
     isFallingSpeed: 1
   viewClampYmin: -70
   viewClampYmax: 80
+  hitpoints: 5
   playerMask:
     serializedVersion: 2
     m_Bits: 55
@@ -2779,6 +2781,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472903238185547994, guid: 73d47f82be5b186449b8602664668ceb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472903238185547994, guid: 73d47f82be5b186449b8602664668ceb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472903238185547994, guid: 73d47f82be5b186449b8602664668ceb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7472903238185547994, guid: 73d47f82be5b186449b8602664668ceb,
         type: 3}
