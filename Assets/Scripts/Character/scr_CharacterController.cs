@@ -438,10 +438,10 @@ public class scr_CharacterController : MonoBehaviour
         Image img;
         if(hurtImages.TryGetValue(damageType,out img))
         {
-            img.CrossFadeAlpha(0, 0f, false);
             img.gameObject.SetActive(true);
-            img.CrossFadeAlpha(1, 0.2f, false);
-            StartCoroutine(FadeOutUIImage(img, 0.2f, 0.5f));
+            img.canvasRenderer.SetAlpha(1);
+            img.CrossFadeAlpha(0, 0.5f, false);
+            //StartCoroutine(FadeOutUIImage(img, 0.5f, 0.2f));
         }
         UpdateHealthText();
         if (hitpoints <= 0 && !gameOver)
@@ -458,6 +458,13 @@ public class scr_CharacterController : MonoBehaviour
         deathOverlay.CrossFadeAlpha(0, 0f, false);
         deathOverlay.CrossFadeAlpha(1, 2f, false);
         gameOver = true;
+    }
+    #endregion
+    #region - Health -
+    public void GetHealth(int value)
+    {
+        hitpoints += value;
+        UpdateHealthText();
     }
     #endregion
     #region -UI-
