@@ -242,57 +242,48 @@ public class scr_WeaponController : MonoBehaviour
     #region - Shoot -
     public void Shoot()
     {
-
-        Debug.Log("Pew");
         buttonPressed = true;
         bulletsShot = 0;
         readyToShoot = false;
-
+        //Get middle of screen and shoot out ray
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
-
         Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))//Check to what point to shoot
         {
             targetPoint = hit.point;
         }
         else
         {
-            targetPoint = ray.GetPoint(75);
+            targetPoint = ray.GetPoint(75);//If hit nothingness go to arbritary point
         }
-
+        //Get direction and add spread
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
-
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
-
+        //Create bullet and set its direction
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         currentBullet.transform.forward = directionWithSpread.normalized;
-
+        //Add direction to bullet
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
-
-        //Instantiate muzzle flash, if you have one
+        //Instantiate muzzle flash, ij there is one
         if (muzzleFlash != null)
             Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-
-
         bulletsLeft--;
         UpdateAmmoText(); // update ammo text
         bulletsShot++;
-
+        //Add delay of shot
         if (allowInvoke)
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
 
             characterController.characterController.Move(-directionWithSpread.normalized * recoilForce);
-
         }
 
+        //If the weapon uses burst fire 
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
         {
             Invoke("Shoot", timeBetweenShots);

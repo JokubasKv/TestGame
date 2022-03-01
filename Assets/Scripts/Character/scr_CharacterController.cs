@@ -309,6 +309,13 @@ public class scr_CharacterController : MonoBehaviour
         characterController.height = Mathf.SmoothDamp(characterController.height, currentStance.StanceCollider.height, ref stanceCapsuleHeightVelocity, playerStanceSmoothing);
         characterController.center = Vector3.SmoothDamp(characterController.center, currentStance.StanceCollider.center, ref stanceCapsuleCenterVelocity, playerStanceSmoothing);
     }
+    private bool StanceCheck(float stanceCheckHeight)
+    {
+        var start = new Vector3(feetTransform.position.x, feetTransform.position.y + characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
+        var end = new Vector3(feetTransform.position.x, feetTransform.position.y + stanceCheckHeight - characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
+
+        return Physics.CheckCapsule(start, end, characterController.radius, playerMask);
+    }
     private void CrouchPressed()
     {
         if(playerStance == PlayerStance.Crouch)
@@ -332,14 +339,6 @@ public class scr_CharacterController : MonoBehaviour
     }
     #endregion
     #region - Sprinting -
-    private bool StanceCheck(float stanceCheckHeight)
-    {
-        var start = new Vector3(feetTransform.position.x, feetTransform.position.y + characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
-        var end = new Vector3(feetTransform.position.x, feetTransform.position.y + stanceCheckHeight - characterController.radius + stanceCheckErrorMargin, feetTransform.position.z);
-
-        return Physics.CheckCapsule(start,end,characterController.radius,playerMask);
-    }
-
     private void ToggleSprint()
     {
         if (input_Movement.y <= 0.2f || playerStance != PlayerStance.Stand || isAimingIn)
