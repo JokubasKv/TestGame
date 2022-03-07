@@ -37,7 +37,7 @@ public class scr_CustomBullet : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Bullet")) return;
+        if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Player")) return;
 
         collisions++;
         if(collision.collider.CompareTag("Enemy") && explodeOnTouch) Explode();
@@ -52,7 +52,7 @@ public class scr_CustomBullet : MonoBehaviour
         {
            enemies[i].GetComponent<scr_EnemyController>().TakeDamage(explosionDamage);
         }
-        Invoke("Delay", 0.01f);
+        Invoke("Delay", 0.00f);
     }
     private void Delay()
     {

@@ -18,15 +18,6 @@ public class scr_CharacterController : MonoBehaviour
     private Vector3 newCameraRotation;
     private Vector3 newCharacterRotation;
 
-    //Events
-    public delegate void WeaponAction();
-    public static event WeaponAction OnShootPressed;
-    public static event WeaponAction OnShootReleased;
-    public static event WeaponAction OnReloadPressed;
-    public static event WeaponAction OnPickUpPressed;
-    public static event WeaponAction OnDropPressed;
-
-
     [Header("References")]
     public Transform cameraHolder;
     public Transform feetTransform;
@@ -57,7 +48,7 @@ public class scr_CharacterController : MonoBehaviour
     [Header("Gravity")]
     public float gravityAmount;
     public float gravityMin;
-    private float playerGravity;
+    public float playerGravity;
 
     public Vector3 jumpingForce;
     private Vector3 jumpingForceVelocity;
@@ -96,9 +87,12 @@ public class scr_CharacterController : MonoBehaviour
     public bool isShooting;
     [Header("Pickup Settings")]
     public float pickUpRange;
-    public float dropForwardForce, dropUpwardForce;
-    public bool equipped;
     public static bool slotFull;
+    public scr_PickupController currentSlot;
+    public LayerMask weaponLayer;
+
+    public Vector3 impact = Vector3.zero;
+
 
     private bool gameOver = false;
 
@@ -119,13 +113,8 @@ public class scr_CharacterController : MonoBehaviour
         defaultInput.Weapon.Fire2Pressed.performed += e => AimingInPressed();
         defaultInput.Weapon.Fire2Released.performed += e => AimingInReleased();
 
-        defaultInput.Weapon.Fire1Pressed.performed += e => ShootPressed();
-        defaultInput.Weapon.Fire1Released.performed += e => ShootReleased();
-
-        defaultInput.Weapon.Reload.performed += e => ReloadPressed();
-
         defaultInput.Weapon.Pickup.performed += e => PickUpPressed();
-        defaultInput.Weapon.Drop.performed += e => OnDropPressed();
+        defaultInput.Weapon.Drop.performed += e => DropPressed();
 
         defaultInput.Enable();
 
@@ -163,10 +152,12 @@ public class scr_CharacterController : MonoBehaviour
             SetIsFalling();
 
             CalculateView();
-            CalculateMovement();
             CalculateJump();
             CalculateStance();
             CalculateAimingIn();
+            CalculateMovement();
+            CalculateImpact();
+
 
             StanceCheck(playerCrouchStance.StanceCollider.height);
         }
@@ -223,7 +214,7 @@ public class scr_CharacterController : MonoBehaviour
         {
             isSprinting = false;
         }
-
+        //Set Speed
         var verticalSpeed = playerSettings.walkingForwardSpeed;
         var horizontalSpeed = playerSettings.walkingStrafeSpeed;
 
@@ -253,16 +244,16 @@ public class scr_CharacterController : MonoBehaviour
         {
             playerSettings.SpeedEffector = 1;
         }
-
+        //Set animation Speed for weapon
         weaponAnimationSpeed = characterController.velocity.magnitude / (playerSettings.walkingForwardSpeed * playerSettings.SpeedEffector);
         if (weaponAnimationSpeed > 1)
         {
             weaponAnimationSpeed = 1;
         }
-
+        //Change movement speed according to effectors
         verticalSpeed *= playerSettings.SpeedEffector;
         horizontalSpeed *= playerSettings.SpeedEffector;
-
+        //Create new movement speed according to what happened before
         newMovementSpeed = Vector3.SmoothDamp(
             newMovementSpeed,
             new Vector3(horizontalSpeed * input_Movement.x * Time.deltaTime, 0, verticalSpeed * input_Movement.y * Time.deltaTime),
@@ -276,13 +267,13 @@ public class scr_CharacterController : MonoBehaviour
             playerGravity -= gravityAmount * Time.deltaTime;
         }
 
-        if (playerGravity < -0.1f && isGrounded)
+        if (playerGravity < -0.05f && isGrounded)
         {
-            playerGravity = -0.1f;
+            playerGravity = -0.05f;
         }
 
        MovementSpeed.y += playerGravity;
-       MovementSpeed += jumpingForce * Time.deltaTime;
+       MovementSpeed.y += jumpingForce.y * Time.deltaTime;
 
         characterController.Move(MovementSpeed);// passs the movement
     }
@@ -290,7 +281,7 @@ public class scr_CharacterController : MonoBehaviour
     #region - Jumping -
     private void CalculateJump()
     {
-        jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.zero, ref jumpingForceVelocity, playerSettings.jumpingFalloff);
+        jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.up, ref jumpingForceVelocity, playerSettings.jumpingFalloff);
     }
     private void JumpPressed()
     {
@@ -384,43 +375,50 @@ public class scr_CharacterController : MonoBehaviour
         }
     }
     #endregion
-    #region -Shooting -
-    private void ShootPressed()
-    {
-        if (isSprinting) return;
-        if (OnShootPressed != null)
-        {
-            OnShootPressed();
-        }
-    }
-    private void ShootReleased()
-    {
-        if (OnShootReleased != null)
-        {
-            OnShootReleased();
-        }
-    }
-    #endregion
-    #region - Reload -
-    private void ReloadPressed()
-    {
-        if (OnReloadPressed != null)
-        {
-            OnReloadPressed();
-        }
-    }
-    #endregion
+    #region - Pickup/Drop -
     private void PickUpPressed()
     {
-        if (OnPickUpPressed != null)
+        if (!slotFull)
         {
-            OnPickUpPressed();
+            RaycastHit hit;
+            if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, pickUpRange, weaponLayer))
+            {
+
+                if (hit.transform.CompareTag("CanPickUp"))
+                {
+                    Debug.Log("Hit");
+                    currentSlot = hit.transform.GetComponent<scr_PickupController>();
+                    currentWeapon = hit.transform.GetComponent<scr_WeaponController>();
+
+                    currentSlot.Pickup();
+
+                    slotFull = true;
+                }
+            }
         }
     }
-    #region - Gizmos -
-    private void OnDrawGizmos()
+
+    private void DropPressed()
     {
-        Gizmos.DrawWireSphere(feetTransform.position, playerSettings.isGroundedRadius);
+        if (slotFull)
+        {
+            currentSlot.Drop(cameraHolder);
+            slotFull = false;
+        }
+    }
+    #endregion
+    #region - Impact Force -
+    private void CalculateImpact()
+    {
+        // apply the impact force:
+        if (impact.magnitude > 0.2F) characterController.Move(impact * Time.deltaTime);
+        // consumes the impact energy each cycle:
+        impact = Vector3.Lerp(impact, Vector3.zero, 3 * Time.deltaTime);
+    }
+    public void AddImpact(Vector3 dir, float force)
+    {
+        dir.Normalize();
+        impact += dir.normalized * force / gravityAmount;
     }
     #endregion
     #region - Damage -
@@ -482,6 +480,13 @@ public class scr_CharacterController : MonoBehaviour
         img.CrossFadeAlpha(0, time, false);
         yield return new WaitForSeconds(time);
         img.gameObject.SetActive(false);
+    }
+    #endregion
+    #region - Gizmos -
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(feetTransform.position, playerSettings.isGroundedRadius);
+        Gizmos.DrawRay(cameraHolder.transform.position, cameraHolder.transform.forward * pickUpRange);
     }
     #endregion
 }

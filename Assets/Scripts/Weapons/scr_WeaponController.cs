@@ -10,12 +10,15 @@ public class scr_WeaponController : MonoBehaviour
     [Header("References")]
     public Animator weaponAnimator;
     public Camera fpsCam;
+    public LayerMask IgnoreLayersShooting;
+    [Header("UI References")]
+    public Text ammoText;
 
 
     [Header("Settings")]
     public WeaponSettingModel settings;
 
-    bool isInitialised;
+    public bool isInitialised;
 
     Vector3 newWeaponRotation;
     Vector3 newWeaponRotationVelocity;
@@ -33,8 +36,6 @@ public class scr_WeaponController : MonoBehaviour
     private bool isGroundedTrigger;
 
     private float fallingDelay;
-
-    public Text ammoText;
 
 
     [Header("Weapon Sway")]
@@ -71,6 +72,7 @@ public class scr_WeaponController : MonoBehaviour
     public float timeBetweenShots;
     public int MagazineSize;
     public int bulletsPerTap;
+    public bool isShotgun;
     public bool allowButtonHold;
     public bool buttonPressed;
     [Header("Recoil Settings")]
@@ -84,12 +86,16 @@ public class scr_WeaponController : MonoBehaviour
     bool reloading;
 
     public bool allowInvoke = true;
+
+    DefaultInput defaultInput;
     #region - OnEnable/OnDisable-
     private void OnEnable()
     {
-        scr_CharacterController.OnShootPressed += ShootPressed;
-        scr_CharacterController.OnShootReleased += ShootReleased;
-        scr_CharacterController.OnReloadPressed += Reload;
+        defaultInput.Weapon.Fire1Pressed.performed += _ => ShootPressed();
+        defaultInput.Weapon.Fire1Released.performed += _ => ShootReleased();
+        defaultInput.Weapon.Reload.performed += _ => Reload();
+
+        defaultInput.Enable();
 
         weaponAnimator.speed = 1;
 
@@ -98,9 +104,11 @@ public class scr_WeaponController : MonoBehaviour
     }
     private void OnDisable()
     {
-        scr_CharacterController.OnShootPressed -= ShootPressed;
-        scr_CharacterController.OnShootReleased -= ShootReleased;
-        scr_CharacterController.OnReloadPressed -= Reload;
+        defaultInput.Weapon.Fire1Pressed.performed -= _ =>  ShootPressed();
+        defaultInput.Weapon.Fire1Released.performed -= _ => ShootReleased();
+        defaultInput.Weapon.Reload.performed -= _ => Reload();
+
+        defaultInput.Disable();
 
         weaponAnimator.speed = 0;
     }
@@ -108,6 +116,9 @@ public class scr_WeaponController : MonoBehaviour
     #region - Start/Awake -
     private void Awake()
     {
+        defaultInput = new DefaultInput();
+
+
         bulletsLeft = MagazineSize;
         readyToShoot = true;
         buttonPressed = false;
@@ -136,6 +147,7 @@ public class scr_WeaponController : MonoBehaviour
 
         if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold && !characterController.isSprinting)
         {
+            bulletsShot = 0;
             Shoot();
         }
 
@@ -242,10 +254,6 @@ public class scr_WeaponController : MonoBehaviour
     #region - Shoot -
     public void Shoot()
     {
-
-        Debug.Log("Pew");
-        buttonPressed = true;
-        bulletsShot = 0;
         readyToShoot = false;
 
         Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -253,7 +261,7 @@ public class scr_WeaponController : MonoBehaviour
 
         Vector3 targetPoint;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit,~IgnoreLayersShooting))
         {
             targetPoint = hit.point;
         }
@@ -263,37 +271,63 @@ public class scr_WeaponController : MonoBehaviour
         }
 
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
-        GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithSpread.normalized;
 
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+        if (isShotgun)
+        {
+            for (int i = 0; i < bulletsPerTap; i++)
+            {
+
+                x = Random.Range(-spread, spread);
+                y = Random.Range(-spread, spread);
+                directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+                GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+                currentBullet.transform.forward = directionWithSpread.normalized;
+
+                currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+                currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+            currentBullet.transform.forward = directionWithSpread.normalized;
+
+            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+        }
+
+
 
         //Instantiate muzzle flash, if you have one
         if (muzzleFlash != null)
-            Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-
+        {
+                Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        }
 
         bulletsLeft--;
-        UpdateAmmoText(); // update ammo text
         bulletsShot++;
+        UpdateAmmoText(); // update ammo text
 
         if (allowInvoke)
         {
             Invoke("ResetShot", timeBetweenShooting);
             allowInvoke = false;
 
-            characterController.characterController.Move(-directionWithSpread.normalized * recoilForce);
+            if (recoilForce > 0)
+            {
+                characterController.playerGravity = -0.05f;
+                characterController.AddImpact(-directionWithSpread.normalized, recoilForce);
+            }
 
         }
 
-        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0 && !isShotgun)
         {
             Invoke("Shoot", timeBetweenShots);
         }
@@ -311,7 +345,6 @@ public class scr_WeaponController : MonoBehaviour
     private void ShootReleased()
     {
         buttonPressed = false;
-        Debug.Log("Released M1");
     }
 
     private void ResetShot()
