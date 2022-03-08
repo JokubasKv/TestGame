@@ -12,7 +12,7 @@ public class scr_HealthCrystal : MonoBehaviour
         if (c.gameObject.tag == "Player")
         {
             scr_CharacterController characterController = c.GetComponent<scr_CharacterController>();
-            characterController.GetHealth(healing);
+            characterController.Heal(healing);
             Destroy(this.gameObject);
         }
 

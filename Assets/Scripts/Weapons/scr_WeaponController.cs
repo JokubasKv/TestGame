@@ -307,7 +307,7 @@ public class scr_WeaponController : MonoBehaviour
         //Instantiate muzzle flash, if you have one
         if (muzzleFlash != null)
         {
-                Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+                Instantiate(muzzleFlash, attackPoint.position, fpsCam.transform.rotation);
         }
 
         bulletsLeft--;

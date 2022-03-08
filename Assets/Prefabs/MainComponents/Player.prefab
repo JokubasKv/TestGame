@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 7778692549916303219}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -155,6 +155,11 @@ MonoBehaviour:
   input_View: {x: 0, y: 0}
   cameraHolder: {fileID: 7778692549814165465}
   feetTransform: {fileID: 7778692550013613313}
+  ammoText: {fileID: 0}
+  healthBar: {fileID: 0}
+  finalText: {fileID: 0}
+  deathOverlay: {fileID: 0}
+  hurtImageList: []
   playerSettings:
     ViewXSensitivity: 10
     ViewYSensitivity: 10
@@ -162,15 +167,15 @@ MonoBehaviour:
     ViewXInverted: 0
     ViewYInverted: 0
     SprintingHold: 1
-    MovementSmoothing: 0.4
-    walkingForwardSpeed: 4
-    walkingStrafeSpeed: 3
-    walkingBackwardSpeed: 2
-    RunningForwardSpeed: 6
-    RunningStrafeSpeed: 4
-    jumpingHeight: 5
-    jumpingFalloff: 0.4
-    fallingMovementSmoothing: 0.4
+    MovementSmoothing: 0.1
+    walkingForwardSpeed: 6
+    walkingStrafeSpeed: 4
+    walkingBackwardSpeed: 3
+    RunningForwardSpeed: 8
+    RunningStrafeSpeed: 6
+    jumpingHeight: 6
+    jumpingFalloff: 1
+    fallingMovementSmoothing: 0.8
     SpeedEffector: 1
     CrouchSpeedEffector: 0.6
     ProneSpeedEffector: 0.2
@@ -179,15 +184,17 @@ MonoBehaviour:
     isGroundedRadius: 0.2
     isFallingSpeed: 1
   viewClampYmin: -70
-  viewClampYmax: 80
+  viewClampYmax: 90
+  maxHitPoints: 100
   playerMask:
     serializedVersion: 2
     m_Bits: 55
   groundMask:
     serializedVersion: 2
-    m_Bits: 55
-  gravityAmount: 0.03
+    m_Bits: 8247
+  gravityAmount: 0.06
   gravityMin: -3
+  playerGravity: 0
   jumpingForce: {x: 0, y: 0, z: 0}
   playerStance: 0
   playerStanceSmoothing: 0.2
@@ -207,10 +214,12 @@ MonoBehaviour:
   weaponAnimationSpeed: 0
   isAimingIn: 0
   isShooting: 0
-  pickUpRange: 0
-  dropForwardForce: 0
-  dropUpwardForce: 0
-  equipped: 0
+  pickUpRange: 6
+  currentSlot: {fileID: 0}
+  weaponLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  impact: {x: 0, y: 0, z: 0}
 --- !u!1 &7778692550013613314
 GameObject:
   m_ObjectHideFlags: 0

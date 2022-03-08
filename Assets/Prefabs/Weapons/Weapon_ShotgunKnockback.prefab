@@ -120,8 +120,9 @@ MonoBehaviour:
   aimingInTime: 0.12
   isAimingIn: 0
   attackPoint: {fileID: 9213395876012012135}
-  bullet: {fileID: 8490034083143542463, guid: e7883739681bbba4191d37865cc7408b, type: 3}
-  muzzleFlash: {fileID: 0}
+  bullet: {fileID: 3181484737526228340, guid: 7d5c0aad474b0cb4aaf2d6e61dabd658, type: 3}
+  muzzleFlash: {fileID: 344799106757460987, guid: a316c7b5b184da84dbef6dfe733b4b33,
+    type: 3}
   shootForce: 40
   upwardForce: 0
   timeBetweenShooting: 0.5

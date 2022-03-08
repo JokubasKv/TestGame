@@ -23,7 +23,7 @@ public class scr_CharacterController : MonoBehaviour
     public Transform feetTransform;
     [Header("UI References")]
     public Text ammoText;
-    public Text healthText;
+    public scr_HealthBarFade healthBar;
     public Text finalText;
     public Image deathOverlay;
 
@@ -41,7 +41,8 @@ public class scr_CharacterController : MonoBehaviour
     public PlayerSettingsModel playerSettings;
     public float viewClampYmin = -70;
     public float viewClampYmax = 80;
-    public int hitpoints = 5;
+    public float maxHitPoints=100; 
+    float hitpoints;
     public LayerMask playerMask;
     public LayerMask groundMask;
 
@@ -136,6 +137,7 @@ public class scr_CharacterController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        hitpoints = maxHitPoints;
 
         if (currentWeapon)
         {
@@ -166,7 +168,7 @@ public class scr_CharacterController : MonoBehaviour
     private void Start()
     {
         UpdateAmmoText();
-        UpdateHealthText();
+        UpdateHealth();
     }
     #endregion
     #region - Aiming In -
@@ -441,7 +443,7 @@ public class scr_CharacterController : MonoBehaviour
             img.CrossFadeAlpha(0, 0.5f, false);
             //StartCoroutine(FadeOutUIImage(img, 0.5f, 0.2f));
         }
-        UpdateHealthText();
+        UpdateHealth();
         if (hitpoints <= 0 && !gameOver)
         {
             StopGame();
@@ -459,10 +461,20 @@ public class scr_CharacterController : MonoBehaviour
     }
     #endregion
     #region - Health -
-    public void GetHealth(int value)
+    public void Heal(int value)
     {
         hitpoints += value;
-        UpdateHealthText();
+        UpdateHealth();
+    }
+    public void Heal(float value)
+    {
+        hitpoints += value;
+        UpdateHealth();
+    }
+
+    public float GetHealthNormalized()
+    {
+        return (float)hitpoints / maxHitPoints;
     }
     #endregion
     #region -UI-
@@ -470,9 +482,9 @@ public class scr_CharacterController : MonoBehaviour
     {
         ammoText.text = "";
     }
-    private void UpdateHealthText()
+    private void UpdateHealth()
     {
-        healthText.text = $"HP: {hitpoints}";
+        healthBar.SetHealth(GetHealthNormalized());
     }
     IEnumerator FadeOutUIImage(Image img, float time, float waitTime)
     {
