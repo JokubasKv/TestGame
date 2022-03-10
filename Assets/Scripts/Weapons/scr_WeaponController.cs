@@ -271,34 +271,37 @@ public class scr_WeaponController : MonoBehaviour
         }
 
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
 
 
         if (isShotgun)
         {
             for (int i = 0; i < bulletsPerTap; i++)
             {
+                float x = Random.Range(-spread, spread);
+                float y = Random.Range(-spread, spread);
+                float z = Random.Range(-spread, spread);
 
-                x = Random.Range(-spread, spread);
-                y = Random.Range(-spread, spread);
-                directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
-
+                Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, z);
                 GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
+                //currentBullet.transform.forward = Quaternion.Euler(x, y, z) * directionWithoutSpread.normalized;
                 currentBullet.transform.forward = directionWithSpread.normalized;
 
+
                 currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-                currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
+                if(upwardForce!=0)
+                    currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
             }
         }
         else
         {
+            float x = Random.Range(-spread, spread);
+            float y = Random.Range(-spread, spread);
+
+            Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
             GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
             currentBullet.transform.forward = directionWithSpread.normalized;
 
-            currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
+            currentBullet.GetComponent<Rigidbody>().AddForce(currentBullet.transform.forward * shootForce, ForceMode.Impulse);
             currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
         }
 
@@ -322,7 +325,7 @@ public class scr_WeaponController : MonoBehaviour
             if (recoilForce > 0)
             {
                 characterController.playerGravity = -0.05f;
-                characterController.AddImpact(-directionWithSpread.normalized, recoilForce);
+                characterController.AddImpact(-directionWithoutSpread.normalized, recoilForce);
             }
 
         }

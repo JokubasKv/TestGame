@@ -41,8 +41,9 @@ public class scr_CharacterController : MonoBehaviour
     public PlayerSettingsModel playerSettings;
     public float viewClampYmin = -70;
     public float viewClampYmax = 80;
-    public float maxHitPoints=100; 
+    public float maxHitPoints=100;
     float hitpoints;
+    public int numOfJumps;
     public LayerMask playerMask;
     public LayerMask groundMask;
 
@@ -157,12 +158,16 @@ public class scr_CharacterController : MonoBehaviour
             CalculateJump();
             CalculateStance();
             CalculateAimingIn();
-            CalculateMovement();
-            CalculateImpact();
+
 
 
             StanceCheck(playerCrouchStance.StanceCollider.height);
         }
+    }
+    private void FixedUpdate()
+    {
+        CalculateMovement();
+        CalculateImpact();
     }
 
     private void Start()
@@ -194,6 +199,8 @@ public class scr_CharacterController : MonoBehaviour
     private void SetIsGrounded()
     {
         isGrounded = Physics.CheckSphere(feetTransform.position, playerSettings.isGroundedRadius, groundMask);
+
+        if(isGrounded) numOfJumps = 1;
     }
     private void SetIsFalling()
     {
@@ -287,7 +294,7 @@ public class scr_CharacterController : MonoBehaviour
     }
     private void JumpPressed()
     {
-        if (!isGrounded || playerStance == PlayerStance.Prone)
+        if (numOfJumps >= playerSettings.maxNumberOfJumps || playerStance == PlayerStance.Prone)
         {
             return;
         }
@@ -304,6 +311,7 @@ public class scr_CharacterController : MonoBehaviour
         //Jump
         jumpingForce = Vector3.up * playerSettings.jumpingHeight;
         playerGravity = 0;
+        numOfJumps++;
         if(currentWeapon)
             if(currentWeapon.enabled)
                 currentWeapon.TriggerJump();

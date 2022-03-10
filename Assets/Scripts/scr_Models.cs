@@ -40,6 +40,7 @@ public static class scr_Models
         [Header("Jumping Settings")]
         public float jumpingHeight;
         public float jumpingFalloff;
+        public int maxNumberOfJumps;
         public float fallingMovementSmoothing;
 
         [Header("Speed Effectors")]
