@@ -157,6 +157,7 @@ MonoBehaviour:
     MovementSwayX: 10
     MovementSwayY: 5
     MovementSwaySmoothing: 0.3
+  isInitialised: 0
   weaponSwayObject: {fileID: 7472903237520791775}
   swayAmountA: 1
   swayAmountB: 2
@@ -178,11 +179,15 @@ MonoBehaviour:
   timeBetweenShots: 0.1
   MagazineSize: 100
   bulletsPerTap: 1
+  isShotgun: 0
   allowButtonHold: 1
   buttonPressed: 0
   recoilForce: 0
   bulletsLeft: 0
   allowInvoke: 1
+  shotSoundEffect: {fileID: 8300000, guid: 65a8e1f13143c47ab9b96881eac40dff, type: 3}
+  explosionSoundEffect: {fileID: 0}
+  reloadSoundEffect: {fileID: 8300000, guid: 3ec8409cc2cd05d40978acaebf995980, type: 3}
 --- !u!54 &1340417287
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -212,16 +217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunScript: {fileID: 7472903238185547995}
-  characterScript: {fileID: 0}
   rb: {fileID: 1340417287}
   coll: {fileID: 2006632107}
-  weaponLayer:
-    serializedVersion: 2
-    m_Bits: 8192
   player: {fileID: 0}
   gunContainer: {fileID: 0}
-  fpsCam: {fileID: 0}
-  pickupRange: 3
   dropForwarForce: 6
   dropUpwardForce: 2
   equipped: 1

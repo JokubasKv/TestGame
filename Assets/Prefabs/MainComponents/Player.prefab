@@ -210,6 +210,9 @@ MonoBehaviour:
   isSprinting: 0
   isFalling: 0
   isGrounded: 0
+  walkEffect: {fileID: 0}
+  runEffect: {fileID: 0}
+  jumpEffect: {fileID: 8300000, guid: 37efca6300d701d43af6c7ba5e322e7f, type: 3}
   currentWeapon: {fileID: 0}
   weaponAnimationSpeed: 0
   isAimingIn: 0
