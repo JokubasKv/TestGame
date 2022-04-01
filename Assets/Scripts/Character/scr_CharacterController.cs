@@ -78,6 +78,7 @@ public class scr_CharacterController : MonoBehaviour
     private Vector3 newMovementSpeed;
     private Vector3 newMovementSpeedVelocity;
 
+
     [Header("Weapon")]
     public scr_WeaponController currentWeapon;
     public float weaponAnimationSpeed;
@@ -96,6 +97,10 @@ public class scr_CharacterController : MonoBehaviour
 
 
     private bool gameOver = false;
+
+    [Header("Audio")]
+    AudioSource sfx;
+    public AudioClip walkEffect, jumpEffect;
 
 
     #region - Awake -

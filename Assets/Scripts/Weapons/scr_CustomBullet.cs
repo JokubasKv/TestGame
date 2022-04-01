@@ -24,6 +24,10 @@ public class scr_CustomBullet : MonoBehaviour
     private int collisions;
     PhysicMaterial physics_mat;
 
+    [Header("Audio")]
+    public AudioSource src;
+    public AudioClip explosionEffect;
+
     private void Start()
     {
         Setup();
@@ -45,17 +49,23 @@ public class scr_CustomBullet : MonoBehaviour
     
     private void Explode()
     {
-        if (explosion != null) Instantiate(explosion, transform.position, Quaternion.identity);
-
+        if (explosion != null) 
+        {
+            src.clip = explosionEffect;
+            src.Play();
+            Instantiate(explosion, transform.position, Quaternion.identity);
+        } 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
         for (int i = 0; i < enemies.Length; i++)
         {
            enemies[i].GetComponent<scr_EnemyController>().TakeDamage(explosionDamage);
         }
+
         Invoke("Delay", 0.00f);
     }
     private void Delay()
     {
+
         Destroy(gameObject);
     }
     private void Setup()

@@ -86,6 +86,9 @@ public class scr_WeaponController : MonoBehaviour
     bool reloading;
 
     public bool allowInvoke = true;
+    [Header("Audio")]
+    AudioSource shootingSound;
+    public AudioClip shotSoundEffect, explosionSoundEffect, reloadSoundEffect;
 
     DefaultInput defaultInput;
     #region - OnEnable/OnDisable-
@@ -126,7 +129,7 @@ public class scr_WeaponController : MonoBehaviour
     private void Start()
     {
         newWeaponRotation = transform.localRotation.eulerAngles;
-
+        shootingSound = GetComponent<AudioSource>();
         UpdateAmmoText(); // update ammo text
     }
     public void Initialise(scr_CharacterController CharacterController)
@@ -149,6 +152,10 @@ public class scr_WeaponController : MonoBehaviour
         {
             bulletsShot = 0;
             Shoot();
+
+            //shootingSound.Play();
+            shootingSound.clip = shotSoundEffect;
+            shootingSound.Play();
         }
 
         CalculateWeaponRotation();
@@ -364,6 +371,11 @@ public class scr_WeaponController : MonoBehaviour
         if (bulletsLeft == MagazineSize && reloading) return;
 
         reloading = true;
+        if(bulletsLeft != MagazineSize)
+        {
+            shootingSound.clip = reloadSoundEffect;
+            shootingSound.Play();
+        }
         Invoke("ReloadFinished", reloadTime);
     }
 

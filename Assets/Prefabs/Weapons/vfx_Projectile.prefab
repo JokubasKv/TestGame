@@ -90,6 +90,8 @@ MonoBehaviour:
   maxCollisions: 0
   maxLifetime: 6
   explodeOnTouch: 1
+  src: {fileID: 0}
+  explosionEffect: {fileID: 8300000, guid: 2cec506c73db14bfeb9b30509db0bdd7, type: 3}
 --- !u!1 &4827072318929314998
 GameObject:
   m_ObjectHideFlags: 0
