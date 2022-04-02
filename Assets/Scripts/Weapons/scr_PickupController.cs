@@ -16,6 +16,10 @@ public class scr_PickupController : MonoBehaviour
     public float dropForwarForce, dropUpwardForce;
 
     public bool equipped;
+
+    public AudioSource sfx;
+    public AudioClip pickUp, drop;
+
     private void Start()
     {
         if (!equipped)
@@ -38,6 +42,7 @@ public class scr_PickupController : MonoBehaviour
         {
             equipped = true;
 
+
             transform.SetParent(gunContainer);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -47,6 +52,8 @@ public class scr_PickupController : MonoBehaviour
             coll.isTrigger = true;
 
             gunScript.enabled = true;
+            sfx.clip = pickUp;
+            sfx.Play();
         }
     }
     public void Drop(Transform viewDirection)
@@ -54,6 +61,8 @@ public class scr_PickupController : MonoBehaviour
         if (equipped)
         {
             equipped = false;
+            sfx.clip = drop;
+            sfx.Play();
 
             transform.SetParent(null);
             rb.isKinematic = false;
@@ -70,7 +79,6 @@ public class scr_PickupController : MonoBehaviour
             gunScript.enabled = false;
 
             UpdateAmmoText();
-
         }
     }
 

@@ -28,6 +28,7 @@ public class scr_CustomBullet : MonoBehaviour
     public AudioSource src;
     public AudioClip explosionEffect;
 
+
     private void Start()
     {
         Setup();
@@ -36,23 +37,28 @@ public class scr_CustomBullet : MonoBehaviour
     {
         if (collisions > maxCollisions) Explode();
 
+
         maxLifetime -= Time.deltaTime;
         if (maxLifetime <= 0) Explode();
     }
     private void OnCollisionEnter(Collision collision)
     {
+        
         if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Player")) return;
 
         collisions++;
-        if(collision.collider.CompareTag("Enemy") && explodeOnTouch) Explode();
+        if (collision.collider.CompareTag("Enemy") && explodeOnTouch) 
+        { 
+            src.PlayOneShot(explosionEffect); 
+            Explode(); 
+        } 
     }
     
     private void Explode()
     {
         if (explosion != null) 
         {
-            src.clip = explosionEffect;
-            src.Play();
+            //src.PlayOneShot(explosionEffect);
             Instantiate(explosion, transform.position, Quaternion.identity);
         } 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
@@ -65,7 +71,7 @@ public class scr_CustomBullet : MonoBehaviour
     }
     private void Delay()
     {
-
+        src.PlayOneShot(explosionEffect);
         Destroy(gameObject);
     }
     private void Setup()

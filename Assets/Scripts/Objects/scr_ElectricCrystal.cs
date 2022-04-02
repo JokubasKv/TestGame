@@ -10,6 +10,8 @@ public class scr_ElectricCrystal : MonoBehaviour
     float damageTicks = 0;
     public DamageType damageType;
 
+    public AudioSource playSound;
+
     private void Update()
     {
         if (damageTicks > 0)
@@ -24,6 +26,7 @@ public class scr_ElectricCrystal : MonoBehaviour
         {
             if (c.gameObject.tag == "Player")
             {
+                playSound.Play();
                 scr_CharacterController characterController = c.GetComponent<scr_CharacterController>();
                 characterController.TakeDamage(damage, DamageType.Electric);
                 damageTicks = damageTimer;

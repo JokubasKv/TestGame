@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6730643065169989186}
   - component: {fileID: 5380000093953058641}
   - component: {fileID: 5380000093953058640}
+  - component: {fileID: 1041905813913468144}
   m_Layer: 0
   m_Name: Test Tree
   m_TagString: Untagged
@@ -111,6 +112,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 23.2
   m_Center: {x: 1.7250361, y: 12.486218, z: -2.7803478}
+--- !u!65 &1041905813913468144
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5073569160043753367}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 25, y: 50, z: 25}
+  m_Center: {x: 0, y: 10, z: 0}
 --- !u!1 &5380000093390850792
 GameObject:
   m_ObjectHideFlags: 0
