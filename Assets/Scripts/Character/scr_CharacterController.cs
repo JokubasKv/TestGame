@@ -343,7 +343,7 @@ public class scr_CharacterController : MonoBehaviour
     }
     private void CrouchPressed()
     {
-        if(playerStance == PlayerStance.Crouch)
+        if (playerStance == PlayerStance.Crouch)
         {
             if (StanceCheck(playerStandStance.StanceCollider.height))
             {

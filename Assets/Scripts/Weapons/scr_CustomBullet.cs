@@ -44,12 +44,11 @@ public class scr_CustomBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Player")) return;
+        if (collision.collider.CompareTag("Bullet")) return;
 
         collisions++;
-        if (collision.collider.CompareTag("Enemy") && explodeOnTouch) 
+        if ((collision.collider.CompareTag("Enemy") || collision.collider.CompareTag("Player")) && explodeOnTouch) 
         { 
-            src.PlayOneShot(explosionEffect); 
             Explode(); 
         } 
     }
@@ -58,20 +57,31 @@ public class scr_CustomBullet : MonoBehaviour
     {
         if (explosion != null) 
         {
-            //src.PlayOneShot(explosionEffect);
             Instantiate(explosion, transform.position, Quaternion.identity);
-        } 
+        }
+        if (explosionEffect != null)
+        {
+            src.PlayOneShot(explosionEffect);
+        }
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
         for (int i = 0; i < enemies.Length; i++)
         {
-           enemies[i].GetComponent<scr_EnemyController>().TakeDamage(explosionDamage);
+            if (enemies[i].CompareTag("Enemy")){
+                enemies[i].GetComponent<scr_EnemyAi>().TakeDamage(explosionDamage);
+            }
+            if (enemies[i].CompareTag("Player")){
+                if (enemies[i].enabled == true)
+                {
+                    enemies[i].GetComponent<scr_CharacterController>().TakeDamage(explosionDamage, scr_Models.DamageType.Electric);
+                    Debug.Log(enemies[i]);
+                }
+            }
         }
 
         Invoke("Delay", 0.00f);
     }
     private void Delay()
     {
-        src.PlayOneShot(explosionEffect);
         Destroy(gameObject);
     }
     private void Setup()
