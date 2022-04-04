@@ -28,10 +28,16 @@ public class scr_CustomBullet : MonoBehaviour
     public AudioSource src;
     public AudioClip explosionEffect;
 
+    Collider explosionCollider;
+
+    private bool needsSound = true;
 
     private void Start()
     {
         Setup();
+
+        explosionCollider = GetComponent<Collider>();
+
     }
     private void Update()
     {
@@ -49,7 +55,6 @@ public class scr_CustomBullet : MonoBehaviour
         collisions++;
         if (collision.collider.CompareTag("Enemy") && explodeOnTouch) 
         { 
-            src.PlayOneShot(explosionEffect); 
             Explode(); 
         } 
     }
@@ -58,7 +63,11 @@ public class scr_CustomBullet : MonoBehaviour
     {
         if (explosion != null) 
         {
-            //src.PlayOneShot(explosionEffect);
+            if (needsSound)
+            {
+                src.PlayOneShot(explosionEffect);
+                needsSound = false;
+            }
             Instantiate(explosion, transform.position, Quaternion.identity);
         } 
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
@@ -66,12 +75,11 @@ public class scr_CustomBullet : MonoBehaviour
         {
            enemies[i].GetComponent<scr_EnemyController>().TakeDamage(explosionDamage);
         }
-
-        Invoke("Delay", 0.00f);
+        explosionCollider.enabled = false;
+        Invoke("Delay", 2f);
     }
     private void Delay()
     {
-        src.PlayOneShot(explosionEffect);
         Destroy(gameObject);
     }
     private void Setup()
