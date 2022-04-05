@@ -28,16 +28,10 @@ public class scr_CustomBullet : MonoBehaviour
     public AudioSource src;
     public AudioClip explosionEffect;
 
-    Collider explosionCollider;
-
-    private bool needsSound = true;
 
     private void Start()
     {
         Setup();
-
-        explosionCollider = GetComponent<Collider>();
-
     }
     private void Update()
     {
@@ -50,10 +44,10 @@ public class scr_CustomBullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.collider.CompareTag("Bullet") || collision.collider.CompareTag("Player")) return;
+        if (collision.collider.CompareTag("Bullet")) return;
 
         collisions++;
-        if (collision.collider.CompareTag("Enemy") && explodeOnTouch) 
+        if ((collision.collider.CompareTag("Enemy") || collision.collider.CompareTag("Player")) && explodeOnTouch) 
         { 
             Explode(); 
         } 
@@ -63,20 +57,28 @@ public class scr_CustomBullet : MonoBehaviour
     {
         if (explosion != null) 
         {
-            if (needsSound)
-            {
-                src.PlayOneShot(explosionEffect);
-                needsSound = false;
-            }
             Instantiate(explosion, transform.position, Quaternion.identity);
-        } 
+        }
+        if (explosionEffect != null)
+        {
+            src.PlayOneShot(explosionEffect);
+        }
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
         for (int i = 0; i < enemies.Length; i++)
         {
-           enemies[i].GetComponent<scr_EnemyController>().TakeDamage(explosionDamage);
+            if (enemies[i].CompareTag("Enemy")){
+                enemies[i].GetComponent<scr_EnemyAi>().TakeDamage(explosionDamage);
+            }
+            if (enemies[i].CompareTag("Player")){
+                if (enemies[i].enabled == true)
+                {
+                    enemies[i].GetComponent<scr_CharacterController>().TakeDamage(explosionDamage, scr_Models.DamageType.Electric);
+                    Debug.Log(enemies[i]);
+                }
+            }
         }
-        explosionCollider.enabled = false;
-        Invoke("Delay", 2f);
+
+        Invoke("Delay", 0.00f);
     }
     private void Delay()
     {
