@@ -86,6 +86,7 @@ public class scr_WeaponController : MonoBehaviour
     bool reloading;
 
     public bool allowInvoke = true;
+
     [Header("Audio")]
     AudioSource shootingSound;
     public AudioClip shotSoundEffect, explosionSoundEffect, reloadSoundEffect;
@@ -153,7 +154,6 @@ public class scr_WeaponController : MonoBehaviour
             bulletsShot = 0;
             Shoot();
 
-            //shootingSound.Play();
             shootingSound.clip = shotSoundEffect;
             shootingSound.Play();
         }
