@@ -28,9 +28,13 @@ public class scr_CustomBullet : MonoBehaviour
     public AudioSource src;
     public AudioClip explosionEffect;
 
+    public bool explosionPlayed = false;
+
 
     private void Start()
     {
+        if (src == null) src = GetComponent<AudioSource>();
+
         Setup();
     }
     private void Update()
@@ -55,30 +59,29 @@ public class scr_CustomBullet : MonoBehaviour
     
     private void Explode()
     {
+        if (explosionPlayed) return;
         if (explosion != null) 
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
         }
         if (explosionEffect != null)
         {
+            src.clip = explosionEffect;
             src.PlayOneShot(explosionEffect);
         }
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].CompareTag("Enemy")){
-                enemies[i].GetComponent<scr_EnemyAi>().TakeDamage(explosionDamage);
+                enemies[i].GetComponent<scr_EnemyBase>().TakeDamage(explosionDamage);
             }
             if (enemies[i].CompareTag("Player")){
-                if (enemies[i].enabled == true)
-                {
-                    enemies[i].GetComponent<scr_CharacterController>().TakeDamage(explosionDamage, scr_Models.DamageType.Electric);
-                    Debug.Log(enemies[i]);
-                }
+                enemies[i].GetComponent<scr_CharacterController>().TakeDamage(explosionDamage, scr_Models.DamageType.Electric);
+                Debug.Log(enemies[i]);
             }
         }
-
-        Invoke("Delay", 0.00f);
+        explosionPlayed = true;
+        Invoke("Delay", 0f);
     }
     private void Delay()
     {

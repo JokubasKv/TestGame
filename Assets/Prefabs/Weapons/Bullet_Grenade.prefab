@@ -140,6 +140,7 @@ MonoBehaviour:
   explodeOnTouch: 1
   src: {fileID: -2871289694729997554}
   explosionEffect: {fileID: 8300000, guid: 09dbcc298325c4c588e42e4c949beb69, type: 3}
+  explosionPlayed: 0
 --- !u!82 &-2871289694729997554
 AudioSource:
   m_ObjectHideFlags: 0

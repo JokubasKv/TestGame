@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70cc93b4e63ccdd43b6c69ddce5b9aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageText: {fileID: 708446887}
   health: 0
+  damageText: {fileID: 708446887}
 --- !u!64 &18238687
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 43480809}
   - component: {fileID: 43480808}
   - component: {fileID: 43480810}
-  m_Layer: 14
+  m_Layer: 11
   m_Name: Target Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6d9eeb79413b73b489cd625995419b17,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6d9eeb79413b73b489cd625995419b17,
         type: 3}
@@ -1179,7 +1179,7 @@ GameObject:
   - component: {fileID: 708446889}
   - component: {fileID: 708446888}
   - component: {fileID: 708446887}
-  m_Layer: 14
+  m_Layer: 11
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 944311913}
   - component: {fileID: 944311915}
   - component: {fileID: 944311914}
-  m_Layer: 14
+  m_Layer: 11
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1636,7 +1636,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6d9eeb79413b73b489cd625995419b17,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6d9eeb79413b73b489cd625995419b17,
         type: 3}
@@ -2004,8 +2004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70cc93b4e63ccdd43b6c69ddce5b9aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageText: {fileID: 944311914}
   health: 0
+  damageText: {fileID: 944311914}
 --- !u!1 &1545061257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,7 +2335,7 @@ GameObject:
   - component: {fileID: 1683039149}
   - component: {fileID: 1683039148}
   - component: {fileID: 1683039147}
-  m_Layer: 14
+  m_Layer: 11
   m_Name: Target Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2795,6 +2795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9426603e28f684e8578f59720aeb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 100
   agent: {fileID: 0}
   player: {fileID: 0}
   whatIsGround:
@@ -2804,7 +2805,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   attackPoint: {fileID: 854939521}
-  health: 100
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 5
   timeBetweenAttacks: 1

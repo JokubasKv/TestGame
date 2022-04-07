@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class scr_EnemyAi : MonoBehaviour
+public class scr_EnemyAi : scr_EnemyBase
 {
     public NavMeshAgent agent;
 
@@ -12,7 +12,6 @@ public class scr_EnemyAi : MonoBehaviour
 
     public Transform attackPoint;
 
-    public float health;
 
     //Patroling
     public Vector3 walkPoint;
@@ -99,8 +98,9 @@ public class scr_EnemyAi : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(float damage)
     {
+        Debug.Log("oof");
         health -= damage;
 
         if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);

@@ -131,11 +131,13 @@ MonoBehaviour:
     m_Bits: 2048
   bouncinnes: 0
   useGravity: 0
-  explosionDamage: 1
+  explosionDamage: 6
   explosionRange: 0.16
   maxCollisions: 0
   maxLifetime: 60
   explodeOnTouch: 1
+  src: {fileID: 0}
+  explosionEffect: {fileID: 0}
 --- !u!96 &8509797948560117433
 TrailRenderer:
   serializedVersion: 2

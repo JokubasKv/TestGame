@@ -20,7 +20,7 @@ public class scr_RaycastWeapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            scr_EnemyController target = hit.transform.GetComponent<scr_EnemyController>();
+            scr_EnemyBase target = hit.transform.GetComponent<scr_EnemyBase>();
             if (target != null)
             {
                 target.TakeDamage(damage);

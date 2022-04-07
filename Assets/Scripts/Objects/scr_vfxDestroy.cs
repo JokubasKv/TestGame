@@ -9,7 +9,7 @@ public class scr_vfxDestroy : MonoBehaviour
     void Start()
     {
         if(sys==null)
-            Destroy(this.gameObject, this.GetComponentInChildren<ParticleSystem>().main.duration);
+            Destroy(this.gameObject, 1);
         else
         {
             Destroy(this.gameObject, sys.main.duration);
