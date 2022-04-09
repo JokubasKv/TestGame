@@ -138,10 +138,10 @@ MonoBehaviour:
   recoilForce: 1
   bulletsLeft: 0
   allowInvoke: 1
-  shotSoundEffect: {fileID: 8300000, guid: c462261d6125691498a633f5a9985de8, type: 3}
-  explosionSoundEffect: {fileID: 8300000, guid: d3247579c549643a5b3a95f9224eaf3c,
+  shotSoundEffect: {fileID: 8300000, guid: 0e041b5c4c9e9a743a2e9c19ab72acad, type: 3}
+  explosionSoundEffect: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52,
     type: 3}
-  reloadSoundEffect: {fileID: 0}
+  reloadSoundEffect: {fileID: 8300000, guid: 3c5c1d4d7b9307c458890a4beb12e4ae, type: 3}
 --- !u!54 &1759107944233017108
 Rigidbody:
   m_ObjectHideFlags: 0

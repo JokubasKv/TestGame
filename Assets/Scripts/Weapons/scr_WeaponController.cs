@@ -282,6 +282,8 @@ public class scr_WeaponController : MonoBehaviour
 
         if (isShotgun)
         {
+            shootingSound.clip = shotSoundEffect;
+            shootingSound.Play();
             for (int i = 0; i < bulletsPerTap; i++)
             {
                 float x = Random.Range(-spread, spread);
