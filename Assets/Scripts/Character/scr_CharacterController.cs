@@ -26,6 +26,7 @@ public class scr_CharacterController : MonoBehaviour
     public scr_HealthBarFade healthBar;
     public Text finalText;
     public Image deathOverlay;
+    public Button restartButton;
 
     [Serializable]
     public class KeyValuePair
@@ -97,7 +98,7 @@ public class scr_CharacterController : MonoBehaviour
     public Vector3 impact = Vector3.zero;
 
 
-    private bool gameOver = false;
+    public bool gameOver = false;
 
     [Header("Audio")]
     AudioSource sfx;
@@ -467,6 +468,9 @@ public class scr_CharacterController : MonoBehaviour
     {
         if (currentWeapon) currentWeapon.enabled = false;
         finalText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         deathOverlay.gameObject.SetActive(true);
         deathOverlay.CrossFadeAlpha(0, 0f, false);
         deathOverlay.CrossFadeAlpha(1, 2f, false);

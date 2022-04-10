@@ -26,10 +26,13 @@ public class scr_ElectricCrystal : MonoBehaviour
         {
             if (c.gameObject.tag == "Player")
             {
-                playSound.Play();
                 scr_CharacterController characterController = c.GetComponent<scr_CharacterController>();
-                characterController.TakeDamage(damage, DamageType.Electric);
-                damageTicks = damageTimer;
+                if(!characterController.gameOver)
+                {
+                    playSound.Play();
+                    characterController.TakeDamage(damage, DamageType.Electric);
+                    damageTicks = damageTimer;
+                }
             }
         }
     }
