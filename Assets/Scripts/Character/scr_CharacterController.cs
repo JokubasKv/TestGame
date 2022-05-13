@@ -412,6 +412,16 @@ public class scr_CharacterController : MonoBehaviour
                 }
             }
         }
+        RaycastHit bhit;
+        if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out bhit, pickUpRange))
+        {
+            Debug.Log(bhit);
+            if (bhit.transform.CompareTag("Button"))
+            {
+                Debug.Log("Press");
+                bhit.transform.GetComponent<scr_ButtonController>().Press();
+            }
+        }
     }
 
     private void DropPressed()
@@ -481,6 +491,10 @@ public class scr_CharacterController : MonoBehaviour
     public void Heal(int value)
     {
         hitpoints += value;
+        if(hitpoints > maxHitPoints)
+        {
+            hitpoints = maxHitPoints;
+        }
         UpdateHealth();
     }
     public void Heal(float value)

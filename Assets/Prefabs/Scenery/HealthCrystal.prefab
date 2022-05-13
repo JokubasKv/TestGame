@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 5805804783991389502}
   - component: {fileID: 419930128669343522}
   - component: {fileID: 2035010424722061288}
-  m_Layer: 0
+  - component: {fileID: 5747839543130030206}
+  m_Layer: 15
   m_Name: HealthCrystal
   m_TagString: Crystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1035581759959386539
 Transform:
@@ -81,6 +82,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healing: 10
+--- !u!208 &5747839543130030206
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366182121866302225}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &472429154554849582
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,12 +109,12 @@ GameObject:
   - component: {fileID: 7015091130621442746}
   - component: {fileID: 1521536821697633047}
   - component: {fileID: 6525562265676034298}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7015091130621442746
 Transform:
@@ -171,12 +188,12 @@ GameObject:
   - component: {fileID: 955363485195674901}
   - component: {fileID: 6585166391977276150}
   - component: {fileID: 2423208377844018673}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &955363485195674901
 Transform:
@@ -249,12 +266,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5594740343776061070}
   - component: {fileID: 4748388834902201405}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5594740343776061070
 Transform:
@@ -342,12 +359,12 @@ GameObject:
   - component: {fileID: 5688678162579946455}
   - component: {fileID: 5629893775593073908}
   - component: {fileID: 8772879796617322045}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5688678162579946455
 Transform:
@@ -421,12 +438,12 @@ GameObject:
   - component: {fileID: 1912582370640483153}
   - component: {fileID: 7742623319575868610}
   - component: {fileID: 4501224181735022171}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1912582370640483153
 Transform:
@@ -500,12 +517,12 @@ GameObject:
   - component: {fileID: 8554575913645466999}
   - component: {fileID: 9146688524015528853}
   - component: {fileID: 6274414923439696098}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8554575913645466999
 Transform:
@@ -579,12 +596,12 @@ GameObject:
   - component: {fileID: 5511110655081609828}
   - component: {fileID: 7531218273373142337}
   - component: {fileID: 8141906918491923095}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5511110655081609828
 Transform:
@@ -658,12 +675,12 @@ GameObject:
   - component: {fileID: 4707459127525514407}
   - component: {fileID: 5964679481749900814}
   - component: {fileID: 7022591228408357632}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4707459127525514407
 Transform:
@@ -737,12 +754,12 @@ GameObject:
   - component: {fileID: 9087877338590492838}
   - component: {fileID: 7082406828098412325}
   - component: {fileID: 6807496422454332218}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9087877338590492838
 Transform:

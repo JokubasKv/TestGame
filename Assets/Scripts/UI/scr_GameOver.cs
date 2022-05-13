@@ -12,6 +12,17 @@ public class scr_GameOver : MonoBehaviour
     [SerializeField]
     Button exitButton;
 
+    [SerializeField]
+    Button settingsButton;
+
+    [SerializeField]
+    private RectTransform mainMenu;
+
+    [SerializeField]
+    private RectTransform settingsMenu;
+
+    public Toggle toggle;
+
     bool paused = false;
 
     private void Update()
@@ -38,7 +49,9 @@ public class scr_GameOver : MonoBehaviour
     {
         Time.timeScale = 0;
         paused = true;
+        Show(mainMenu);
         Show(resumeButton);
+        Show(settingsButton);
         Show(exitButton);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -47,8 +60,12 @@ public class scr_GameOver : MonoBehaviour
     {
         Time.timeScale = 1;
         paused = false;
+        Hide(mainMenu);
         Hide(resumeButton);
+        Hide(settingsButton);
         Hide(exitButton);
+        Hide(settingsMenu);
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -58,5 +75,20 @@ public class scr_GameOver : MonoBehaviour
         paused = false;
         scr_Scenes.LoadPreviousScene();
     }
-    // Update is called once per frame
+
+    public void ShowSettingsMenu()
+    {
+        Show(settingsMenu);
+        Hide(mainMenu);
+    }
+    public void ShowMainMenu()
+    {
+        Show(mainMenu);
+        Hide(settingsMenu);
+    }
+
+    public void GraphicsToggled()
+    {
+        PlayerPrefs.SetInt("Graphics", toggle.isOn ? 1 : 0);
+    }
 }

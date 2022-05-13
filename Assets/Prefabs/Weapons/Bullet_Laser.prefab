@@ -128,7 +128,7 @@ MonoBehaviour:
   explosion: {fileID: 0}
   whatIsEnemies:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2049
   bouncinnes: 0
   useGravity: 0
   explosionDamage: 6
@@ -138,6 +138,7 @@ MonoBehaviour:
   explodeOnTouch: 1
   src: {fileID: 0}
   explosionEffect: {fileID: 0}
+  explosionPlayed: 0
 --- !u!96 &8509797948560117433
 TrailRenderer:
   serializedVersion: 2

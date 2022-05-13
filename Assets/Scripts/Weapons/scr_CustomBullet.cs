@@ -73,14 +73,31 @@ public class scr_CustomBullet : MonoBehaviour
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemies[i].CompareTag("Enemy")){
-                enemies[i].GetComponent<scr_EnemyBase>().TakeDamage(explosionDamage);
+                scr_EnemyBase script;
+                if (script=enemies[i].GetComponent<scr_EnemyBase>())
+                {
+                    script.TakeDamage(explosionDamage);
+                }
+                else if(script = enemies[i].GetComponentInParent<scr_EnemyBase>())
+                {
+                    script.TakeDamage(explosionDamage);
+                }
             }
             if (enemies[i].CompareTag("Player")){
                 enemies[i].GetComponent<scr_CharacterController>().TakeDamage(explosionDamage, scr_Models.DamageType.Electric);
                 Debug.Log(enemies[i]);
             }
+            if (enemies[i].CompareTag("Crystal"))
+            {
+                Debug.Log("plink");
+                enemies[i].GetComponent<scr_ShotEffect>().PlayEffect(transform.position);
+            }
         }
         explosionPlayed = true;
+
+
+
+
         Invoke("Delay", 0f);
     }
     private void Delay()

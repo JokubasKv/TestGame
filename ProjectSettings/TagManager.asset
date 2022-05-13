@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - CanPickUp
   - Crystal
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Bullet
   - Weapon
   - Target
-  - 
+  - Collectable
   - 
   - 
   - 

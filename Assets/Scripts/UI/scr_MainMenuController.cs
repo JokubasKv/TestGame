@@ -13,6 +13,8 @@ public class scr_MainMenuController : MonoBehaviour
 
     public Slider slider;
 
+    public Toggle toggle;
+
     [SerializeField]
     AudioSource audioSource;
 
@@ -23,6 +25,8 @@ public class scr_MainMenuController : MonoBehaviour
     private void Update()
     {
         audioSource.volume = slider.value;
+        PlayerPrefs.SetFloat("Audio", slider.value);
+        PlayerPrefs.SetInt("Graphics", toggle.isOn ? 1 : 0);
     }
     private static void Show(Component c)
     {
@@ -50,4 +54,6 @@ public class scr_MainMenuController : MonoBehaviour
         Show(settingsMenu);
         Hide(mainMenu);
     }
+
+
 }
