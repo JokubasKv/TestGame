@@ -185,6 +185,9 @@ public class scr_CharacterController : MonoBehaviour
 
     private void Start()
     {
+        float settings = PlayerPrefs.GetFloat("Audio");
+        source.volume = settings;
+        sfx.volume = settings;
         UpdateAmmoText();
         UpdateHealth();
     }

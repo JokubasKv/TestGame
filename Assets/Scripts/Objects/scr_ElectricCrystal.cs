@@ -12,6 +12,12 @@ public class scr_ElectricCrystal : MonoBehaviour
 
     public AudioSource playSound;
 
+    private void Start()
+    {
+        float settings = PlayerPrefs.GetFloat("Audio");
+        playSound.volume = settings;
+    }
+
     private void Update()
     {
         if (damageTicks > 0)

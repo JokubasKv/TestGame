@@ -22,6 +22,8 @@ public class scr_PickupController : MonoBehaviour
 
     private void Start()
     {
+        float settings = PlayerPrefs.GetFloat("Audio");
+        sfx.volume = settings;
         if (!equipped)
         {
             gunScript.enabled = false;

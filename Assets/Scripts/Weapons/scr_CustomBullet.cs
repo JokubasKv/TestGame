@@ -34,7 +34,8 @@ public class scr_CustomBullet : MonoBehaviour
     private void Start()
     {
         if (src == null) src = GetComponent<AudioSource>();
-
+        float settings = PlayerPrefs.GetFloat("Audio");
+        src.volume = settings;
         Setup();
     }
     private void Update()

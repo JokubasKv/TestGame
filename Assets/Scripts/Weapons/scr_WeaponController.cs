@@ -131,6 +131,8 @@ public class scr_WeaponController : MonoBehaviour
     {
         newWeaponRotation = transform.localRotation.eulerAngles;
         shootingSound = GetComponent<AudioSource>();
+        float settings = PlayerPrefs.GetFloat("Audio");
+        shootingSound.volume = settings;
         UpdateAmmoText(); // update ammo text
     }
     public void Initialise(scr_CharacterController CharacterController)

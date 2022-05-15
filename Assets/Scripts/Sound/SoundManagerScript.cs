@@ -11,10 +11,15 @@ public class SoundManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float settings = PlayerPrefs.GetFloat("Audio");
+
         jumpSound = Resources.Load<AudioClip>("jumpSound");
         walkSound = Resources.Load<AudioClip>("walkSound");
 
+
         audioSrc = GetComponent<AudioSource>();
+
+        audioSrc.volume = settings;
     }
 
     // Update is called once per frame

@@ -20,7 +20,8 @@ public class scr_MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        
+        float settings = PlayerPrefs.GetFloat("Audio");
+        slider.value = settings;
     }
     private void Update()
     {
