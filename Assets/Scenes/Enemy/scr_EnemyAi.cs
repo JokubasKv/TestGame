@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class scr_EnemyAi : scr_EnemyBase
 {
@@ -34,6 +35,8 @@ public class scr_EnemyAi : scr_EnemyBase
     private Vector3 direction;
 
     public float rotationSpeed=1;
+    public int score = 0;
+    public Text scoreboard;
 
     public scr_HordeController hordeController;
 
@@ -141,7 +144,10 @@ public class scr_EnemyAi : scr_EnemyBase
     public override void TakeDamage(float damage)
     {
         Debug.Log("oof");
+
+
         health -= damage;
+        src_ScoreScript.scoreValue += (int)damage;
 
         if (health <= 0)
         {

@@ -25,8 +25,15 @@ public class scr_CharacterController : MonoBehaviour
     public Text ammoText;
     public scr_HealthBarFade healthBar;
     public Text finalText;
+    public Text startScoreText;
+    public Text scoreText;
     public Image deathOverlay;
     public Button restartButton;
+
+    [Header("Audio")]
+    public AudioSource source;
+    public AudioClip gameOverSound;
+    public AudioClip damageSound;
 
     [Serializable]
     public class KeyValuePair
@@ -468,6 +475,12 @@ public class scr_CharacterController : MonoBehaviour
             //StartCoroutine(FadeOutUIImage(img, 0.5f, 0.2f));
         }
         UpdateHealth();
+        if(hitpoints > 0)
+        {
+            source.clip = damageSound;
+            source.Play();
+        }
+
         if (hitpoints <= 0 && !gameOver)
         {
             StopGame();
@@ -477,10 +490,27 @@ public class scr_CharacterController : MonoBehaviour
     private void StopGame()
     {
         if (currentWeapon) currentWeapon.enabled = false;
+
+        source.clip = gameOverSound;
+        source.Play();
+        
         finalText.gameObject.SetActive(true);
+        finalText.CrossFadeAlpha(0, 0f, false);
+        finalText.CrossFadeAlpha(1, 2f, false);
+
+        startScoreText.gameObject.SetActive(false);
+        int fianlScore = src_ScoreScript.GetScore();
+        scoreText.text = "Final score: " + fianlScore;
+        scoreText.gameObject.SetActive(true);
+        scoreText.CrossFadeAlpha(0, 0f, false);
+        scoreText.CrossFadeAlpha(1, 2f, false);
+
         restartButton.gameObject.SetActive(true);
+
+        src_ScoreScript.SetScore(0);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
         deathOverlay.gameObject.SetActive(true);
         deathOverlay.CrossFadeAlpha(0, 0f, false);
         deathOverlay.CrossFadeAlpha(1, 2f, false);
