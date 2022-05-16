@@ -49,9 +49,9 @@ public class scr_GameOver : MonoBehaviour
     {
         Time.timeScale = 0;
         paused = true;
-        Show(mainMenu);
+        //Show(mainMenu);
         Show(resumeButton);
-        Show(settingsButton);
+        //Show(settingsButton);
         Show(exitButton);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -60,11 +60,11 @@ public class scr_GameOver : MonoBehaviour
     {
         Time.timeScale = 1;
         paused = false;
-        Hide(mainMenu);
+        //Hide(mainMenu);
         Hide(resumeButton);
-        Hide(settingsButton);
+        //Hide(settingsButton);
         Hide(exitButton);
-        Hide(settingsMenu);
+        //Hide(settingsMenu);
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
