@@ -10,6 +10,13 @@ public class scr_ButtonController : MonoBehaviour
 
     [SerializeField] UnityEvent ButtonPressed;
 
+    private void Start()
+    {
+        AudioSource src = gameObject.GetComponent<AudioSource>();
+        float settings = PlayerPrefs.GetFloat("Audio");
+        src.volume = settings;
+    }
+
     // Start is called before the first frame update
     public void Press()
     {

@@ -6,6 +6,8 @@ public class scr_WeaponController : MonoBehaviour
 {
     [SerializeField]
     private scr_CharacterController characterController;
+    [SerializeField]
+    private scr_GameOver pauseMenu;
 
     [Header("References")]
     public Animator weaponAnimator;
@@ -151,7 +153,7 @@ public class scr_WeaponController : MonoBehaviour
             return;
         }
 
-        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold && !characterController.isSprinting)
+        if (readyToShoot && buttonPressed && !reloading && bulletsLeft > 0 && allowButtonHold && !characterController.isSprinting && !pauseMenu.paused)
         {
             bulletsShot = 0;
             Shoot();

@@ -23,7 +23,7 @@ public class scr_GameOver : MonoBehaviour
 
     public Toggle toggle;
 
-    bool paused = false;
+    public bool paused = false;
 
     private void Update()
     {
