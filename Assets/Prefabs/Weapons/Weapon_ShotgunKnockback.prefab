@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
+  pauseMenu: {fileID: 0}
   weaponAnimator: {fileID: 9213395877224700332}
   fpsCam: {fileID: 0}
   IgnoreLayersShooting:
@@ -130,7 +131,7 @@ MonoBehaviour:
   spread: 6
   reloadTime: 1.5
   timeBetweenShots: 0.1
-  MagazineSize: 100
+  MagazineSize: 4
   bulletsPerTap: 6
   isShotgun: 1
   allowButtonHold: 0

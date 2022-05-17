@@ -27,6 +27,7 @@ public class scr_EnemyAi : scr_EnemyBase
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, playerInLineOfSight;
+    public bool wasChasingPlayer;
     public bool attacksAreBullets;
     public int meeleeAttackDamage;
     public Vector3 meeleeAttackDimensions;
@@ -40,6 +41,8 @@ public class scr_EnemyAi : scr_EnemyBase
 
     public scr_HordeController hordeController;
 
+    bool alreadySearchWalkPoint = false;
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -51,12 +54,12 @@ public class scr_EnemyAi : scr_EnemyBase
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        playerInLineOfSight = CheckLineOfSight();
+        playerInLineOfSight = playerInSightRange ? CheckLineOfSight() : false;
 
 
-        if (!playerInSightRange && !playerInAttackRange) Patroling();
-        if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (!playerInLineOfSight) Patroling();
+        if (playerInLineOfSight && !playerInAttackRange ) ChasePlayer();
+        if (playerInLineOfSight && playerInAttackRange) AttackPlayer();
     }
 
     private void Patroling()
@@ -74,20 +77,31 @@ public class scr_EnemyAi : scr_EnemyBase
     }
     private void SearchWalkPoint()
     {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        if (!alreadySearchWalkPoint)
+        {
+            //Calculate random point in range
+            float randomZ = Random.Range(-walkPointRange, walkPointRange);
+            float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+            walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        //Check if point not above cliff
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
+            //Check if point not above cliff
+            if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+                walkPointSet = true;
+
+            alreadySearchWalkPoint = true;
+            Invoke("ResetSearchWalkPoint", 1f);
+        }
+    }
+    private void ResetSearchWalkPoint()
+    {
+        alreadySearchWalkPoint = false;
     }
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        SetWalkpoint(player.position);
     }
 
     private void AttackPlayer()
@@ -165,7 +179,7 @@ public class scr_EnemyAi : scr_EnemyBase
     private bool CheckLineOfSight()
     {
         RaycastHit hit;
-        Vector3 direection = transform.position - player.position;
+        Vector3 direction = player.position - transform.position ;
         if (Physics.Raycast(transform.position, direction, out hit)){
             Debug.DrawRay(transform.position, direction * hit.distance, Color.yellow);
             if (hit.collider.CompareTag("Player"))
