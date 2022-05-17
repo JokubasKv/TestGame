@@ -30,7 +30,6 @@ public class scr_HordeController : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(enemyList.Count);
         if (hordeActive)
         {
             if (spawnPoints.Count==0)
@@ -45,7 +44,7 @@ public class scr_HordeController : MonoBehaviour
                 GameObject enemy = Instantiate(enemyReference, spawnPoints[index].transform.position, Quaternion.identity);
                 scr_EnemyAi enemyAi= enemy.GetComponent<scr_EnemyAi>();
                 enemyAi.hordeController = this;
-                enemyAi.walkPoint = initializedWalkPoint.position;
+                enemyAi.SetWalkpoint(initializedWalkPoint.position);
 
                 enemyList.Add(enemy);
                 hordeEnemyCount +=1;

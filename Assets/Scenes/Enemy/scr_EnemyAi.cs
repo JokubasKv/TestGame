@@ -26,7 +26,7 @@ public class scr_EnemyAi : scr_EnemyBase
 
     //States
     public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    public bool playerInSightRange, playerInAttackRange, playerInLineOfSight;
     public bool attacksAreBullets;
     public int meeleeAttackDamage;
     public Vector3 meeleeAttackDimensions;
@@ -51,6 +51,8 @@ public class scr_EnemyAi : scr_EnemyBase
         //Check for sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInLineOfSight = CheckLineOfSight();
+
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
@@ -78,6 +80,7 @@ public class scr_EnemyAi : scr_EnemyBase
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
+        //Check if point not above cliff
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
     }
@@ -143,16 +146,13 @@ public class scr_EnemyAi : scr_EnemyBase
 
     public override void TakeDamage(float damage)
     {
-        Debug.Log("oof");
-
-
         health -= damage;
         src_ScoreScript.scoreValue += (int)damage;
 
         if (health <= 0)
         {
             agent.isStopped=true;
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            Invoke(nameof(DestroyEnemy), 0.1f);
         }
     }
     private void DestroyEnemy()
@@ -160,6 +160,26 @@ public class scr_EnemyAi : scr_EnemyBase
         if (hordeController != null) hordeController.EnemyDied();
 
         Destroy(gameObject);
+    }
+
+    private bool CheckLineOfSight()
+    {
+        RaycastHit hit;
+        Vector3 direection = transform.position - player.position;
+        if (Physics.Raycast(transform.position, direction, out hit)){
+            Debug.DrawRay(transform.position, direction * hit.distance, Color.yellow);
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void SetWalkpoint(Vector3 walk)
+    {
+        walkPoint = walk;
+        walkPointSet = true;
     }
 
 
