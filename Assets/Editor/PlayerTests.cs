@@ -7,12 +7,22 @@ using UnityEngine.UI;
 
 public class PlayerTests
 {
+    GameObject character;
+    scr_CharacterController characterController;
+    [SetUp]
+    public void Setup()
+    {
+        // Instantiate a Player GameObject.
+        // (This MUST be a prefab to create it in the test scene.)
+        character = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Player"));
+        characterController = character.GetComponent<scr_CharacterController>();
+    }
 
     [Test]
     public void Heal_Player_By_10()
     {
         GameObject gameObject = new GameObject();
-        var characterController = gameObject.AddComponent<scr_CharacterController>();
+        //var characterController = gameObject.AddComponent<scr_CharacterController>();
         float healValue = 10;
 
         characterController.Heal(healValue);
@@ -148,11 +158,13 @@ public class PlayerTests
         Assert.AreEqual(expectedResult, characterController.slotFull);
     }
 
-    [Test]
+    [UnityTest]
     public void Walk_Forwards()
     {
         GameObject gameObject = new GameObject();
         var characterController = gameObject.AddComponent<scr_CharacterController>();
+
+        Debug.Log(characterController);
     }
 
     [Test]
@@ -162,7 +174,7 @@ public class PlayerTests
         var characterController = gameObject.AddComponent<scr_CharacterController>();
     }
 
-    [Test]
+    [UnityTest]
     public void Walk_Left()
     {
         GameObject gameObject = new GameObject();
