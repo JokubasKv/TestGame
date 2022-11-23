@@ -50,7 +50,7 @@ public class scr_CharacterController : MonoBehaviour
     public float viewClampYmin = -70;
     public float viewClampYmax = 80;
     public float maxHitPoints=100;
-    float hitpoints;
+    public float hitpoints;
     public int numOfJumps;
     public LayerMask playerMask;
     public LayerMask groundMask;
@@ -98,7 +98,7 @@ public class scr_CharacterController : MonoBehaviour
     public bool isShooting;
     [Header("Pickup Settings")]
     public float pickUpRange;
-    public static bool slotFull;
+    public bool slotFull;
     public scr_PickupController currentSlot;
     public LayerMask weaponLayer;
 
@@ -402,7 +402,7 @@ public class scr_CharacterController : MonoBehaviour
     }
     #endregion
     #region - Pickup/Drop -
-    private void PickUpPressed()
+    public void PickUpPressed()
     {
         if (!slotFull)
         {
@@ -422,6 +422,11 @@ public class scr_CharacterController : MonoBehaviour
                 }
             }
         }
+        if (slotFull)
+        {
+            Debug.Log("Slot is full");
+            return;
+        }
         RaycastHit bhit;
         if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out bhit, pickUpRange))
         {
@@ -434,7 +439,7 @@ public class scr_CharacterController : MonoBehaviour
         }
     }
 
-    private void DropPressed()
+    public void DropPressed()
     {
         if (slotFull)
         {
@@ -480,6 +485,11 @@ public class scr_CharacterController : MonoBehaviour
         UpdateHealth();
         if(hitpoints > 0)
         {
+            if (source == null)
+            {
+                Debug.Log("No source for sound");
+                return;
+            }
             source.clip = damageSound;
             source.Play();
         }
@@ -494,29 +504,51 @@ public class scr_CharacterController : MonoBehaviour
     {
         if (currentWeapon) currentWeapon.enabled = false;
 
-        source.clip = gameOverSound;
-        source.Play();
-        
-        finalText.gameObject.SetActive(true);
-        finalText.CrossFadeAlpha(0, 0f, false);
-        finalText.CrossFadeAlpha(1, 2f, false);
+        if (source != null)
+        {
+            source.clip = gameOverSound;
+            source.Play();
+        }
 
-        startScoreText.gameObject.SetActive(false);
+        if (finalText != null)
+        {
+            finalText.gameObject.SetActive(true);
+            finalText.CrossFadeAlpha(0, 0f, false);
+            finalText.CrossFadeAlpha(1, 2f, false);
+        }
+
+        if (startScoreText != null)
+        {
+            startScoreText.gameObject.SetActive(false);
+        }
+
         int fianlScore = src_ScoreScript.GetScore();
-        scoreText.text = "Final score: " + fianlScore;
-        scoreText.gameObject.SetActive(true);
-        scoreText.CrossFadeAlpha(0, 0f, false);
-        scoreText.CrossFadeAlpha(1, 2f, false);
 
-        restartButton.gameObject.SetActive(true);
+        if (scoreText != null)
+        {
+            scoreText.text = "Final score: " + fianlScore;
+            scoreText.gameObject.SetActive(true);
+            scoreText.CrossFadeAlpha(0, 0f, false);
+            scoreText.CrossFadeAlpha(1, 2f, false);
+        }
+
+        if (restartButton != null)
+        {
+            restartButton.gameObject.SetActive(true);
+        }
+
 
         src_ScoreScript.SetScore(0);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        deathOverlay.gameObject.SetActive(true);
-        deathOverlay.CrossFadeAlpha(0, 0f, false);
-        deathOverlay.CrossFadeAlpha(1, 2f, false);
+        if (deathOverlay != null)
+        {
+            deathOverlay.gameObject.SetActive(true);
+            deathOverlay.CrossFadeAlpha(0, 0f, false);
+            deathOverlay.CrossFadeAlpha(1, 2f, false);
+        }
+
         gameOver = true;
     }
     #endregion
@@ -527,6 +559,11 @@ public class scr_CharacterController : MonoBehaviour
         if(hitpoints > maxHitPoints)
         {
             hitpoints = maxHitPoints;
+        }
+        if (healthBar == null)
+        {
+            Debug.Log("Missing health bar");
+            return;
         }
         UpdateHealth();
     }
@@ -548,6 +585,11 @@ public class scr_CharacterController : MonoBehaviour
     }
     private void UpdateHealth()
     {
+        if (healthBar == null)
+        {
+            Debug.Log("Missing health bar");
+            return;
+        }
         healthBar.SetHealth(GetHealthNormalized());
     }
     IEnumerator FadeOutUIImage(Image img, float time, float waitTime)

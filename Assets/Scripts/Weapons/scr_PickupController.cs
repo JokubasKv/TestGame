@@ -60,6 +60,11 @@ public class scr_PickupController : MonoBehaviour
     }
     public void Drop(Transform viewDirection)
     {
+        if (sfx == null || rb == null)
+        {
+            Debug.Log("Missing objects in script");
+            return;
+        }
         if (equipped)
         {
             equipped = false;
