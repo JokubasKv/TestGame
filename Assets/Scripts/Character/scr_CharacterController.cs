@@ -108,7 +108,6 @@ public class scr_CharacterController : MonoBehaviour
     public bool gameOver = false;
 
     [Header("Audio")]
-    AudioSource sfx;
     public AudioClip walkEffect, jumpEffect;
 
 
@@ -187,7 +186,6 @@ public class scr_CharacterController : MonoBehaviour
     {
         float settings = PlayerPrefs.GetFloat("Audio");
         source.volume = settings;
-        sfx.volume = settings;
         UpdateAmmoText();
         UpdateHealth();
     }
@@ -581,6 +579,11 @@ public class scr_CharacterController : MonoBehaviour
     #region -UI-
     private void UpdateAmmoText()
     {
+        if(ammoText == null)
+        {
+            Debug.Log("Ammo text not defined");
+            return;
+        }
         ammoText.text = "";
     }
     private void UpdateHealth()

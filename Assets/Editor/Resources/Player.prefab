@@ -348,9 +348,9 @@ MonoBehaviour:
   scoreText: {fileID: 0}
   deathOverlay: {fileID: 0}
   restartButton: {fileID: 0}
-  source: {fileID: 0}
-  gameOverSound: {fileID: 0}
-  damageSound: {fileID: 0}
+  source: {fileID: 109974726}
+  gameOverSound: {fileID: 8300000, guid: fed559e81a4af47e6a873693a7525a30, type: 3}
+  damageSound: {fileID: 8300000, guid: 7ff3494e5254748538d75169821087d8, type: 3}
   hurtImageList:
   - damageType: 1
     image: {fileID: 0}
@@ -419,7 +419,7 @@ MonoBehaviour:
     m_Bits: 8192
   impact: {x: 0, y: 0, z: 0}
   gameOver: 0
-  walkEffect: {fileID: 0}
+  walkEffect: {fileID: 8300000, guid: 6e31a67604ba2400ca2928d8d6a45bf3, type: 3}
   jumpEffect: {fileID: 8300000, guid: 37efca6300d701d43af6c7ba5e322e7f, type: 3}
 --- !u!82 &109974726
 AudioSource:
