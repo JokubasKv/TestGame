@@ -91,6 +91,11 @@ public class scr_PickupController : MonoBehaviour
 
     private void UpdateAmmoText()
     {
+        if (gunScript.ammoText == null)
+        {
+            Debug.Log("No ammo text object");
+            return;
+        }
         gunScript.ammoText.text = "";
     }
 }

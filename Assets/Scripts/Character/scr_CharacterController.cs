@@ -404,10 +404,11 @@ public class scr_CharacterController : MonoBehaviour
     {
         if (!slotFull)
         {
+            Debug.Log("1");
             RaycastHit hit;
             if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, pickUpRange, weaponLayer))
             {
-
+                Debug.Log("2");
                 if (hit.transform.CompareTag("CanPickUp"))
                 {
                     Debug.Log("Hit");

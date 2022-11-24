@@ -6,18 +6,24 @@ using UnityEngine.UI;
 public class src_ScoreScript : MonoBehaviour
 {
     public static int scoreValue = 0;
-    Text score;
+    public Text score;
 
     // Start is called before the first frame update
     void Start()
     {
-        score = GetComponent<Text>();
+        if (score != null)
+        {
+            score = GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        score.text = "Score " + scoreValue;
+        if (score != null)
+        {
+            score.text = "Score " + scoreValue;
+        }
     }
 
     public static int GetScore()
@@ -25,8 +31,30 @@ public class src_ScoreScript : MonoBehaviour
         return scoreValue;
     }
 
+    public int GetScoreValue()
+    {
+        return scoreValue;
+    }
+
     public static void SetScore(int value)
     {
         scoreValue = value;
+    }
+
+    public void SetScoreValue(int value)
+    {
+        Debug.Log("PING");
+        scoreValue = value;
+    }
+
+    public static void IncreaseScore(int value)
+    {
+        scoreValue += value;
+    }
+
+    public void IncreaseScoreValue(int value)
+    {
+        Debug.Log("PING");
+        scoreValue += value;
     }
 }
