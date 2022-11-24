@@ -338,4 +338,21 @@ public class PlayerTests
 
     }
 
+    [Test]
+    public void Start_Game()
+    {
+
+    }
+
+    [Test]
+    public void Enemy_Damages_Player()
+    {
+
+    }
+
+    [Test]
+    public void Player_Damages_Enemy()
+    {
+
+    }
 }
