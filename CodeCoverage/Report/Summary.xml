@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>24/11/2022 - 20:37:21</Generatedon>
+    <Parser>MultiReportParser (4x OpenCoverParser)</Parser>
+    <Assemblies>3</Assemblies>
+    <Classes>26</Classes>
+    <Files>26</Files>
+    <Coveredlines>902</Coveredlines>
+    <Uncoveredlines>697</Uncoveredlines>
+    <Coverablelines>1599</Coverablelines>
+    <Totallines>3406</Totallines>
+    <Linecoverage>56.4</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>127</Coveredmethods>
+    <Totalmethods>222</Totalmethods>
+    <Methodcoverage>57.2</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="EditModeTest" classes="1" coverage="93.8" coveredlines="76" coverablelines="81" totallines="170" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6">
+      <Class name="PlayerTests" coverage="93.8" coveredlines="76" coverablelines="81" totallines="170" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6" />
+    </Assembly>
+    <Assembly name="ScriptDefinition" classes="22" coverage="47.9" coveredlines="638" coverablelines="1330" totallines="2833" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="95" totalmethods="189" methodcoverage="50.2">
+      <Class name="DefaultInput" coverage="24.8" coveredlines="45" coverablelines="181" totallines="635" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="22" totalmethods="46" methodcoverage="47.8" />
+      <Class name="scr_ButtonController" coverage="0" coveredlines="0" coverablelines="12" totallines="30" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="scr_CharacterController" coverage="64.3" coveredlines="233" coverablelines="362" totallines="615" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="24" totalmethods="33" methodcoverage="72.7" />
+      <Class name="scr_CustomBullet" coverage="52" coveredlines="38" coverablelines="73" totallines="124" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="8" methodcoverage="87.5" />
+      <Class name="scr_ElectricCrystal" coverage="0" coveredlines="0" coverablelines="28" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="scr_EnemyAi" coverage="63.7" coveredlines="72" coverablelines="113" totallines="210" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="10" totalmethods="14" methodcoverage="71.4" />
+      <Class name="scr_EnemyBase" coverage="20" coveredlines="1" coverablelines="5" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="2" methodcoverage="50" />
+      <Class name="scr_EnemyTargetController" coverage="0" coveredlines="0" coverablelines="8" totallines="22" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="scr_GameOver" coverage="2" coveredlines="1" coverablelines="49" totallines="94" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="11" methodcoverage="9" />
+      <Class name="scr_HealthBarFade" coverage="0" coveredlines="0" coverablelines="37" totallines="59" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="scr_HealthCrystal" coverage="0" coveredlines="0" coverablelines="9" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="scr_HordeController" coverage="72.9" coveredlines="27" coverablelines="37" totallines="74" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="5" methodcoverage="80" />
+      <Class name="scr_MainMenuController" coverage="0" coveredlines="0" coverablelines="29" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="8" methodcoverage="0" />
+      <Class name="scr_Models" coverage="100" coveredlines="1" coverablelines="1" totallines="95" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="1" totalmethods="1" methodcoverage="100" />
+      <Class name="scr_PickupController" coverage="93.4" coveredlines="57" coverablelines="61" totallines="101" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="4" methodcoverage="100" />
+      <Class name="scr_RaycastWeapon" coverage="0" coveredlines="0" coverablelines="12" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="scr_Scenes" coverage="0" coveredlines="0" coverablelines="15" totallines="27" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+      <Class name="scr_ShotEffect" coverage="0" coveredlines="0" coverablelines="23" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="scr_vfxDestroy" coverage="0" coveredlines="0" coverablelines="7" totallines="18" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="scr_WeaponController" coverage="68.3" coveredlines="149" coverablelines="218" totallines="408" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="16" totalmethods="20" methodcoverage="80" />
+      <Class name="SoundManagerScript" coverage="0" coveredlines="0" coverablelines="17" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="src_ScoreScript" coverage="42.4" coveredlines="14" coverablelines="33" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="9" methodcoverage="55.5" />
+    </Assembly>
+    <Assembly name="Tests" classes="3" coverage="100" coveredlines="188" coverablelines="188" totallines="403" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="21" totalmethods="21" methodcoverage="100">
+      <Class name="Tests.EnemyTests" coverage="100" coveredlines="31" coverablelines="31" totallines="84" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
+      <Class name="Tests.PlayerMovement" coverage="100" coveredlines="80" coverablelines="80" totallines="160" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+      <Class name="Tests.WeaponTests" coverage="100" coveredlines="77" coverablelines="77" totallines="159" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>
