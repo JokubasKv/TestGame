@@ -81,7 +81,7 @@ public class scr_WeaponController : MonoBehaviour
     public float recoilForce;
 
     [SerializeField]
-    private int bulletsLeft;
+    public int bulletsLeft;
     private int bulletsShot;
 
     bool readyToShoot;
@@ -375,16 +375,20 @@ public class scr_WeaponController : MonoBehaviour
     }
     #endregion
     #region - Reload -
-    private void Reload()
+    public void Reload()
     {
         if (bulletsLeft == MagazineSize && reloading) return;
 
         reloading = true;
         if(bulletsLeft != MagazineSize)
         {
-            shootingSound.clip = reloadSoundEffect;
-            shootingSound.Play();
+            if (shootingSound != null)
+            {
+                shootingSound.clip = reloadSoundEffect;
+                shootingSound.Play();
+            }
         }
+        bulletsLeft = MagazineSize;
         Invoke("ReloadFinished", reloadTime);
     }
 
