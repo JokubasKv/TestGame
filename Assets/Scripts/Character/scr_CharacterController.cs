@@ -306,7 +306,7 @@ public class scr_CharacterController : MonoBehaviour
     {
         jumpingForce = Vector3.SmoothDamp(jumpingForce, Vector3.up, ref jumpingForceVelocity, playerSettings.jumpingFalloff);
     }
-    private void JumpPressed()
+    public void JumpPressed()
     {
         if (numOfJumps >= playerSettings.maxNumberOfJumps || playerStance == PlayerStance.Prone)
         {
@@ -381,7 +381,7 @@ public class scr_CharacterController : MonoBehaviour
         return Physics.CheckCapsule(start,end,characterController.radius,playerMask);
     }
 
-    private void ToggleSprint()
+    public void ToggleSprint()
     {
         if (input_Movement.y <= 0.2f || playerStance != PlayerStance.Stand || isAimingIn)
         {
