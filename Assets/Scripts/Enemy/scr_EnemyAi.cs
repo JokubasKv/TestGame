@@ -45,7 +45,8 @@ public class scr_EnemyAi : scr_EnemyBase
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        GameObject playergo = GameObject.FindGameObjectWithTag("Player");
+        if (playergo != null) player = playergo.transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -56,7 +57,7 @@ public class scr_EnemyAi : scr_EnemyBase
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         playerInLineOfSight = playerInSightRange ? CheckLineOfSight() : false;
 
-
+        if (player == null) return;
         if (!playerInLineOfSight) Patroling();
         if (playerInLineOfSight && !playerInAttackRange ) ChasePlayer();
         if (playerInLineOfSight && playerInAttackRange) AttackPlayer();
@@ -143,7 +144,7 @@ public class scr_EnemyAi : scr_EnemyBase
                     if (enemy.CompareTag("Player"))
                     {
                         enemy.GetComponent<scr_CharacterController>().TakeDamage(meeleeAttackDamage, scr_Models.DamageType.Electric);
-                        Debug.Log(enemy);
+                        //Debug.Log(enemy);
                     }
                 }
                 ///End of attack code

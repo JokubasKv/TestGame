@@ -17,8 +17,10 @@ public class scr_HordeController : MonoBehaviour
     public int hordeEnemySpawnInterval;
     public Transform initializedWalkPoint;
 
-    int hordeEnemyKilledCount=0;
-    int hordeEnemyCount = 0;
+    [HideInInspector]
+    public int hordeEnemyKilledCount =0;
+    [HideInInspector]
+    public int hordeEnemyCount = 0;
 
     bool hordeActive;
     bool alreadySpawned;
@@ -38,16 +40,16 @@ public class scr_HordeController : MonoBehaviour
                 return;
             }
 
-            if (!alreadySpawned && hordeEnemyCount<=hordeMaxEnemyCount && hordeEnemyNumberToKill>=hordeEnemyKilledCount+hordeEnemyCount+1) //If enough time passed and not at max number of enemiess spawn enemies
+            if (!alreadySpawned && hordeEnemyCount < hordeMaxEnemyCount && hordeEnemyNumberToKill >= hordeEnemyKilledCount + hordeEnemyCount + 1) //If enough time passed and not at max number of enemiess spawn enemies
             {
                 int index = Random.Range(0, spawnPoints.Count);
                 GameObject enemy = Instantiate(enemyReference, spawnPoints[index].transform.position, Quaternion.identity);
-                scr_EnemyAi enemyAi= enemy.GetComponent<scr_EnemyAi>();
+                scr_EnemyAi enemyAi = enemy.GetComponent<scr_EnemyAi>();
                 enemyAi.hordeController = this;
                 enemyAi.SetWalkpoint(initializedWalkPoint.position);
 
                 enemyList.Add(enemy);
-                hordeEnemyCount +=1;
+                hordeEnemyCount += 1;
                 alreadySpawned = true;
                 Invoke(nameof(ResetSpawn), hordeEnemySpawnInterval);
             }

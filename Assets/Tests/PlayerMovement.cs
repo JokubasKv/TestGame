@@ -12,6 +12,11 @@ namespace Tests
         GameObject characterPrefab  = Resources.Load<GameObject>("Player");
         scr_CharacterController characterController;
 
+        GameObject laserGunPrefab = Resources.Load<GameObject>("Weapon_LaserGun");
+        scr_WeaponController laserGunController;
+        scr_PickupController laserGunPickupController;
+
+
         [SetUp]
         public void Setup()
         {
@@ -103,19 +108,53 @@ namespace Tests
         [UnityTest]
         public IEnumerator Jumping()
         {
+            //Create Player Object
             GameObject character = MonoBehaviour.Instantiate(characterPrefab);
             characterController = character.GetComponent<scr_CharacterController>();
+            //Wait to hit ground
             yield return new WaitForSeconds(1f);
 
+            //Record starting postion and then jump
             float startingY = character.transform.position.y;
             characterController.JumpPressed();
 
+            //Wait for jump
             yield return new WaitForSeconds(0.5f);
+            //Record new position and calculate difference
             float newY = character.transform.position.y;
             float difference = newY - startingY;
 
+            //The jump suceeded if the jump difference was positive and character number of jumps increased
             Assert.AreEqual(1, characterController.numOfJumps);
             Assert.IsTrue(difference > 0, "Jumping Difference is" + difference.ToString());
+        }
+
+        [UnityTest]
+        public IEnumerator Pick_Up_Item()
+        {
+            //Creating the objects
+            GameObject character = MonoBehaviour.Instantiate(characterPrefab);
+            characterController = character.GetComponent<scr_CharacterController>();
+
+
+            GameObject laserGun = MonoBehaviour.Instantiate(laserGunPrefab, new Vector3(0, 0.7f, 6), Quaternion.identity,null);
+            laserGunController = laserGun.GetComponent<scr_WeaponController>();
+            laserGunPickupController = laserGun.GetComponent<scr_PickupController>();
+            laserGunController.Initialise(characterController);
+            laserGunPickupController.player = character.transform;
+
+            characterController.PickUpPressed();
+
+
+            yield return new WaitForSeconds(.5f);
+
+            var expectedResult = true;
+
+            Assert.AreEqual(expectedResult, characterController.slotFull);
+
+            characterController.PickUpPressed();
+
+            Assert.AreEqual(expectedResult, characterController.slotFull);
         }
     }
 }

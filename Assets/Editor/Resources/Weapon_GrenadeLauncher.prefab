@@ -152,7 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3271d69055ce8c48b88ab718f7d9cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterController: {fileID: 0}
+  characterController: {fileID: 7778692549916303219, guid: 9841f182f7b17194d9065ef3ee61a235,
+    type: 3}
   pauseMenu: {fileID: 0}
   weaponAnimator: {fileID: 4695455285837720482}
   fpsCam: {fileID: 0}

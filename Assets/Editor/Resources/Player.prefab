@@ -351,9 +351,7 @@ MonoBehaviour:
   source: {fileID: 109974726}
   gameOverSound: {fileID: 8300000, guid: fed559e81a4af47e6a873693a7525a30, type: 3}
   damageSound: {fileID: 8300000, guid: 7ff3494e5254748538d75169821087d8, type: 3}
-  hurtImageList:
-  - damageType: 1
-    image: {fileID: 0}
+  hurtImageList: []
   playerSettings:
     ViewXSensitivity: 10
     ViewYSensitivity: 10

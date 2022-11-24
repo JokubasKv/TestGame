@@ -371,6 +371,11 @@ public class scr_WeaponController : MonoBehaviour
 
     private void UpdateAmmoText()
     {
+        if(ammoText == null)
+        {
+            Debug.Log("Ammo Text undefined");
+            return;
+        }
         ammoText.text = $"Ammo {bulletsLeft}";
     }
     #endregion

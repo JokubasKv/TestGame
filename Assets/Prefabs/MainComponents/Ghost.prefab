@@ -209,10 +209,14 @@ MonoBehaviour:
   attackRange: 1.48
   playerInSightRange: 0
   playerInAttackRange: 0
+  playerInLineOfSight: 0
+  wasChasingPlayer: 0
   attacksAreBullets: 0
   meeleeAttackDamage: 5
   meeleeAttackDimensions: {x: 1, y: 1, z: 1}
   rotationSpeed: 1
+  score: 0
+  scoreboard: {fileID: 0}
   hordeController: {fileID: 0}
 --- !u!195 &1857469906261531644
 NavMeshAgent:
