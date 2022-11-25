@@ -4,10 +4,11 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+using UnityEngine.InputSystem;
 
 namespace Tests
 {
-    public class PlayerMovement
+    public class PlayerMovement : InputTestFixture
     {
         GameObject characterPrefab  = Resources.Load<GameObject>("Player");
         scr_CharacterController characterController;
@@ -16,12 +17,33 @@ namespace Tests
         scr_WeaponController laserGunController;
         scr_PickupController laserGunPickupController;
 
+        Mouse mouse;
+        Keyboard keyboard;
 
-        [SetUp]
-        public void Setup()
+        public override void Setup()
         {
             //Load Testing scene
             SceneManager.LoadScene("Scenes/EmptyScene");
+            mouse = InputSystem.AddDevice<Mouse>();
+            keyboard = InputSystem.AddDevice<Keyboard>();
+        }
+
+        [UnityTest]
+        public IEnumerator Walk_Forward_Keyboard()
+        {
+            GameObject character = MonoBehaviour.Instantiate(characterPrefab);
+            characterController = character.GetComponent<scr_CharacterController>();
+
+            float startingZ = character.transform.position.z;
+
+            Press(keyboard.wKey);
+
+            yield return new WaitForSeconds(1f);
+
+            float newZ = character.transform.position.z;
+            float difference = newZ - startingZ;
+
+            Assert.IsTrue(difference > 0, "Difference is" + difference.ToString());
         }
 
         [UnityTest]
@@ -90,6 +112,7 @@ namespace Tests
 
             Assert.IsTrue(difference < 0, "Difference is" + difference.ToString());
         }
+
 
         [UnityTest]
         public IEnumerator Sprinting()

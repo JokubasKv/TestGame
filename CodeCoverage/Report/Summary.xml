@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>24/11/2022 - 20:37:21</Generatedon>
+    <Generatedon>25/11/2022 - 09:40:51</Generatedon>
     <Parser>MultiReportParser (4x OpenCoverParser)</Parser>
     <Assemblies>3</Assemblies>
     <Classes>26</Classes>
     <Files>26</Files>
-    <Coveredlines>902</Coveredlines>
-    <Uncoveredlines>697</Uncoveredlines>
-    <Coverablelines>1599</Coverablelines>
-    <Totallines>3406</Totallines>
-    <Linecoverage>56.4</Linecoverage>
+    <Coveredlines>915</Coveredlines>
+    <Uncoveredlines>693</Uncoveredlines>
+    <Coverablelines>1608</Coverablelines>
+    <Totallines>3422</Totallines>
+    <Linecoverage>56.9</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
-    <Coveredmethods>127</Coveredmethods>
-    <Totalmethods>222</Totalmethods>
-    <Methodcoverage>57.2</Methodcoverage>
+    <Coveredmethods>128</Coveredmethods>
+    <Totalmethods>223</Totalmethods>
+    <Methodcoverage>57.3</Methodcoverage>
   </Summary>
   <Coverage>
-    <Assembly name="EditModeTest" classes="1" coverage="93.8" coveredlines="76" coverablelines="81" totallines="170" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6">
-      <Class name="PlayerTests" coverage="93.8" coveredlines="76" coverablelines="81" totallines="170" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6" />
+    <Assembly name="EditModeTest" classes="1" coverage="98.7" coveredlines="77" coverablelines="78" totallines="163" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6">
+      <Class name="PlayerTests" coverage="98.7" coveredlines="77" coverablelines="78" totallines="163" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="11" totalmethods="12" methodcoverage="91.6" />
     </Assembly>
     <Assembly name="ScriptDefinition" classes="22" coverage="47.9" coveredlines="638" coverablelines="1330" totallines="2833" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="95" totalmethods="189" methodcoverage="50.2">
       <Class name="DefaultInput" coverage="24.8" coveredlines="45" coverablelines="181" totallines="635" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="22" totalmethods="46" methodcoverage="47.8" />
@@ -45,9 +45,9 @@
       <Class name="SoundManagerScript" coverage="0" coveredlines="0" coverablelines="17" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
       <Class name="src_ScoreScript" coverage="42.4" coveredlines="14" coverablelines="33" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="9" methodcoverage="55.5" />
     </Assembly>
-    <Assembly name="Tests" classes="3" coverage="100" coveredlines="188" coverablelines="188" totallines="403" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="21" totalmethods="21" methodcoverage="100">
+    <Assembly name="Tests" classes="3" coverage="100" coveredlines="200" coverablelines="200" totallines="426" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="22" totalmethods="22" methodcoverage="100">
       <Class name="Tests.EnemyTests" coverage="100" coveredlines="31" coverablelines="31" totallines="84" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="5" totalmethods="5" methodcoverage="100" />
-      <Class name="Tests.PlayerMovement" coverage="100" coveredlines="80" coverablelines="80" totallines="160" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="9" totalmethods="9" methodcoverage="100" />
+      <Class name="Tests.PlayerMovement" coverage="100" coveredlines="92" coverablelines="92" totallines="183" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="10" totalmethods="10" methodcoverage="100" />
       <Class name="Tests.WeaponTests" coverage="100" coveredlines="77" coverablelines="77" totallines="159" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="7" methodcoverage="100" />
     </Assembly>
   </Coverage>

@@ -20,6 +20,7 @@ public class PlayerTests
 
     GameObject UI;
     src_ScoreScript scoreController;
+    static int[] scoreValues = new int[] { 50, 100, 120 };
 
 
 
@@ -138,20 +139,12 @@ public class PlayerTests
     }
 
     [Test]
-    public void Increase_Score_By_50()
+    public void Increase_Score_By_Value([ValueSource("scoreValues")] int value)
     {
-        var expectedResult = 50;
+        var startingResult = scoreController.GetScoreValue();
+        var expectedResult = startingResult + value;
 
-        scoreController.IncreaseScoreValue(50);
-
-        Assert.AreEqual(expectedResult, scoreController.GetScoreValue());
-    }
-
-    public void Increase_Score_By_100()
-    {
-        var expectedResult = 100;
-
-        scoreController.IncreaseScoreValue(100);
+        scoreController.IncreaseScoreValue(value);
 
         Assert.AreEqual(expectedResult, scoreController.GetScoreValue());
     }

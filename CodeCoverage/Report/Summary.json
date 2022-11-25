@@ -1,25 +1,25 @@
 {
   "summary": {
-    "generatedon": "2022-11-24T18:37:21Z",
+    "generatedon": "2022-11-25T07:40:51Z",
     "parser": "MultiReportParser (4x OpenCoverParser)",
     "assemblies": 3,
     "classes": 26,
     "files": 26,
-    "coveredlines": 902,
-    "uncoveredlines": 697,
-    "coverablelines": 1599,
-    "totallines": 3406,
-    "linecoverage": 56.4,
+    "coveredlines": 915,
+    "uncoveredlines": 693,
+    "coverablelines": 1608,
+    "totallines": 3422,
+    "linecoverage": 56.9,
     "coveredbranches": 0,
     "totalbranches": 0,
-    "coveredmethods": 127,
-    "totalmethods": 222,
-    "methodcoverage": 57.2
+    "coveredmethods": 128,
+    "totalmethods": 223,
+    "methodcoverage": 57.3
  },
   "coverage": {
     "assemblies": [
-      { "name": "EditModeTest", "classes": 1, "coverage": 93.8, "coveredlines": 76, "coverablelines": 81, "totallines": 170, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 91.6, "coveredmethods": 11, "totalmethods": 12, "classesinassembly": [
-        { "name": "PlayerTests", "coverage": 93.8, "coveredlines": 76, "coverablelines": 81, "totallines": 170, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 91.6, "coveredmethods": 11, "totalmethods": 12 } ] },
+      { "name": "EditModeTest", "classes": 1, "coverage": 98.7, "coveredlines": 77, "coverablelines": 78, "totallines": 163, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 91.6, "coveredmethods": 11, "totalmethods": 12, "classesinassembly": [
+        { "name": "PlayerTests", "coverage": 98.7, "coveredlines": 77, "coverablelines": 78, "totallines": 163, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 91.6, "coveredmethods": 11, "totalmethods": 12 } ] },
       { "name": "ScriptDefinition", "classes": 22, "coverage": 47.9, "coveredlines": 638, "coverablelines": 1330, "totallines": 2833, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 50.2, "coveredmethods": 95, "totalmethods": 189, "classesinassembly": [
         { "name": "DefaultInput", "coverage": 24.8, "coveredlines": 45, "coverablelines": 181, "totallines": 635, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 47.8, "coveredmethods": 22, "totalmethods": 46 },
         { "name": "scr_ButtonController", "coverage": 0, "coveredlines": 0, "coverablelines": 12, "totallines": 30, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
@@ -43,9 +43,9 @@
         { "name": "scr_WeaponController", "coverage": 68.3, "coveredlines": 149, "coverablelines": 218, "totallines": 408, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 80, "coveredmethods": 16, "totalmethods": 20 },
         { "name": "SoundManagerScript", "coverage": 0, "coveredlines": 0, "coverablelines": 17, "totallines": 45, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 3 },
         { "name": "src_ScoreScript", "coverage": 42.4, "coveredlines": 14, "coverablelines": 33, "totallines": 60, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 55.5, "coveredmethods": 5, "totalmethods": 9 } ] },
-      { "name": "Tests", "classes": 3, "coverage": 100, "coveredlines": 188, "coverablelines": 188, "totallines": 403, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 21, "totalmethods": 21, "classesinassembly": [
+      { "name": "Tests", "classes": 3, "coverage": 100, "coveredlines": 200, "coverablelines": 200, "totallines": 426, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 22, "totalmethods": 22, "classesinassembly": [
         { "name": "Tests.EnemyTests", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 84, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 5, "totalmethods": 5 },
-        { "name": "Tests.PlayerMovement", "coverage": 100, "coveredlines": 80, "coverablelines": 80, "totallines": 160, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 9, "totalmethods": 9 },
+        { "name": "Tests.PlayerMovement", "coverage": 100, "coveredlines": 92, "coverablelines": 92, "totallines": 183, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 10, "totalmethods": 10 },
         { "name": "Tests.WeaponTests", "coverage": 100, "coveredlines": 77, "coverablelines": 77, "totallines": 159, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 7, "totalmethods": 7 } ] } ]
   }
 }

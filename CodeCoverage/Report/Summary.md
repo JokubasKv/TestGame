@@ -1,26 +1,26 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 24/11/2022 - 20:37:21 |
+| Generated on: | 25/11/2022 - 09:40:51 |
 | Parser: | MultiReportParser (4x OpenCoverParser) |
 | Assemblies: | 3 |
 | Classes: | 26 |
 | Files: | 26 |
-| Covered lines: | 902 |
-| Uncovered lines: | 697 |
-| Coverable lines: | 1599 |
-| Total lines: | 3406 |
-| Line coverage: | 56.4% (902 of 1599) |
+| Covered lines: | 915 |
+| Uncovered lines: | 693 |
+| Coverable lines: | 1608 |
+| Total lines: | 3422 |
+| Line coverage: | 56.9% (915 of 1608) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
-| Covered methods: | 127 |
-| Total methods: | 222 |
-| Method coverage: | 57.2% (127 of 222) |
+| Covered methods: | 128 |
+| Total methods: | 223 |
+| Method coverage: | 57.3% (128 of 223) |
 
 |**Name**|**Covered**|**Uncovered**|**Coverable**|**Total**|**Line coverage**|**Covered**|**Total**|**Branch coverage**|**Covered**|**Total**|**Method coverage**|
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|**EditModeTest**|**76**|**5**|**81**|**170**|**93.8%**|**0**|**0**|****|**11**|**12**|**91.6%**|
-|PlayerTests|76|5|81|170|93.8%|0|0||11|12|91.6%|
+|**EditModeTest**|**77**|**1**|**78**|**163**|**98.7%**|**0**|**0**|****|**11**|**12**|**91.6%**|
+|PlayerTests|77|1|78|163|98.7%|0|0||11|12|91.6%|
 |**ScriptDefinition**|**638**|**692**|**1330**|**2833**|**47.9%**|**0**|**0**|****|**95**|**189**|**50.2%**|
 |DefaultInput|45|136|181|635|24.8%|0|0||22|46|47.8%|
 |scr_ButtonController|0|12|12|30|0%|0|0||0|3|0%|
@@ -44,7 +44,7 @@
 |scr_WeaponController|149|69|218|408|68.3%|0|0||16|20|80%|
 |SoundManagerScript|0|17|17|45|0%|0|0||0|3|0%|
 |src_ScoreScript|14|19|33|60|42.4%|0|0||5|9|55.5%|
-|**Tests**|**188**|**0**|**188**|**403**|**100%**|**0**|**0**|****|**21**|**21**|**100%**|
+|**Tests**|**200**|**0**|**200**|**426**|**100%**|**0**|**0**|****|**22**|**22**|**100%**|
 |Tests.EnemyTests|31|0|31|84|100%|0|0||5|5|100%|
-|Tests.PlayerMovement|80|0|80|160|100%|0|0||9|9|100%|
+|Tests.PlayerMovement|92|0|92|183|100%|0|0||10|10|100%|
 |Tests.WeaponTests|77|0|77|159|100%|0|0||7|7|100%|
