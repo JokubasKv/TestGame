@@ -1,16 +1,16 @@
 ﻿# Summary
 |||
 |:---|:---|
-| Generated on: | 25/11/2022 - 09:40:51 |
+| Generated on: | 25/11/2022 - 11:13:26 |
 | Parser: | MultiReportParser (4x OpenCoverParser) |
 | Assemblies: | 3 |
 | Classes: | 26 |
 | Files: | 26 |
-| Covered lines: | 915 |
+| Covered lines: | 914 |
 | Uncovered lines: | 693 |
-| Coverable lines: | 1608 |
+| Coverable lines: | 1607 |
 | Total lines: | 3422 |
-| Line coverage: | 56.9% (915 of 1608) |
+| Line coverage: | 56.8% (914 of 1607) |
 | Covered branches: | 0 |
 | Total branches: | 0 |
 | Covered methods: | 128 |
@@ -44,7 +44,7 @@
 |scr_WeaponController|149|69|218|408|68.3%|0|0||16|20|80%|
 |SoundManagerScript|0|17|17|45|0%|0|0||0|3|0%|
 |src_ScoreScript|14|19|33|60|42.4%|0|0||5|9|55.5%|
-|**Tests**|**200**|**0**|**200**|**426**|**100%**|**0**|**0**|****|**22**|**22**|**100%**|
+|**Tests**|**199**|**0**|**199**|**426**|**100%**|**0**|**0**|****|**22**|**22**|**100%**|
 |Tests.EnemyTests|31|0|31|84|100%|0|0||5|5|100%|
-|Tests.PlayerMovement|92|0|92|183|100%|0|0||10|10|100%|
+|Tests.PlayerMovement|91|0|91|183|100%|0|0||10|10|100%|
 |Tests.WeaponTests|77|0|77|159|100%|0|0||7|7|100%|

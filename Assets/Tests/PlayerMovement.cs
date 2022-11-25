@@ -17,14 +17,14 @@ namespace Tests
         scr_WeaponController laserGunController;
         scr_PickupController laserGunPickupController;
 
-        Mouse mouse;
+        //Mouse mouse;
         Keyboard keyboard;
 
         public override void Setup()
         {
             //Load Testing scene
             SceneManager.LoadScene("Scenes/EmptyScene");
-            mouse = InputSystem.AddDevice<Mouse>();
+            //mouse = InputSystem.AddDevice<Mouse>();
             keyboard = InputSystem.AddDevice<Keyboard>();
         }
 
