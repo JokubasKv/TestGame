@@ -57,6 +57,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.nuget.mono-cecil": {
+      "version": "1.10.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.polybrush": {
       "version": "1.0.2",
       "depth": 0,
@@ -74,6 +81,15 @@
         "com.unity.settings-manager": "1.0.3"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.unity.project-auditor": {
+      "version": "https://github.com/Unity-Technologies/ProjectAuditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.mono-cecil": "1.10.2"
+      },
+      "hash": "c2caa765ebac5f141041f31bca56bf81557a2604"
     },
     "com.unity.render-pipelines.core": {
       "version": "7.7.1",
