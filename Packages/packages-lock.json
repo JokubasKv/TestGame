@@ -138,6 +138,16 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.test-framework.performance": {
+      "version": "https://github.com/needle-mirror/com.unity.test-framework.performance.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      },
+      "hash": "33794b1755a547fc0119ac145afe103cd0492f1f"
+    },
     "com.unity.testtools.codecoverage": {
       "version": "1.2.2",
       "depth": 0,

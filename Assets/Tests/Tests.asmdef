@@ -5,7 +5,9 @@
         "UnityEditor.TestRunner",
         "ScriptDefinition",
         "Unity.InputSystem",
-        "Unity.InputSystem.TestFramework"
+        "Unity.InputSystem.TestFramework",
+        "Unity.PerformanceTesting",
+        "Unity.PerformanceTesting.Editor"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
